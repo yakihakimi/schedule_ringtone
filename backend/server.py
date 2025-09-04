@@ -7,6 +7,53 @@ from datetime import datetime
 import logging
 import json
 
+# Configure ffmpeg path for pydub
+def find_ffmpeg_path():
+    """Find FFmpeg installation path dynamically"""
+    import shutil
+    
+    # First, check if ffmpeg is already in PATH
+    ffmpeg_exe = shutil.which("ffmpeg")
+    if ffmpeg_exe:
+        ffmpeg_dir = os.path.dirname(ffmpeg_exe)
+        logging.info(f"FFmpeg found in PATH: {ffmpeg_dir}")
+        return ffmpeg_dir
+    
+    # Common FFmpeg installation paths on Windows
+    possible_paths = [
+        # WinGet installation path (dynamic user)
+        os.path.expanduser(r"~\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin"),
+        # Chocolatey installation
+        r"C:\ProgramData\chocolatey\bin",
+        # Manual installation in Program Files
+        r"C:\Program Files\ffmpeg\bin",
+        r"C:\Program Files (x86)\ffmpeg\bin",
+        # Manual installation in user directory
+        os.path.expanduser(r"~\ffmpeg\bin"),
+        # Working directory (for portable installation)
+        os.path.join(os.path.dirname(__file__), "ffmpeg", "bin"),
+        # Project root ffmpeg folder
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "ffmpeg", "bin")
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            ffmpeg_exe = os.path.join(path, "ffmpeg.exe")
+            if os.path.exists(ffmpeg_exe):
+                logging.info(f"FFmpeg found at: {path}")
+                return path
+    
+    logging.warning("FFmpeg not found in any common installation paths")
+    return None
+
+# Find and configure FFmpeg path
+ffmpeg_path = find_ffmpeg_path()
+if ffmpeg_path:
+    os.environ["PATH"] = ffmpeg_path + os.pathsep + os.environ.get("PATH", "")
+    logging.info(f"Added ffmpeg to PATH: {ffmpeg_path}")
+else:
+    logging.warning("FFmpeg not found - MP3 conversion may not work")
+
 # Import the Windows Task Scheduler service
 try:
     from taskSchedulerService import task_scheduler_service
@@ -30,7 +77,7 @@ try:
         if os.path.exists(test_path) and os.path.getsize(test_path) > 0:
             os.remove(test_path)  # Clean up test file
             PYDUB_FULLY_WORKING = True
-            logging.info("pydub is available and audio conversion is working")
+            logging.info("pydub is available and audio conversion is working with ffmpeg")
         else:
             PYDUB_FULLY_WORKING = False
             logging.warning("pydub is available but audio conversion is not working (missing codecs)")

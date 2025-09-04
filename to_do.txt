@@ -3,9 +3,13 @@
 
 
 
-The schedule is being created successfully in the local storage
 
-greate i want that the Schedule Ringtone will be independent so tiriger the rington using the task schedule of windows so when clicking on deactivate it will deactivate the specific task schedule of windows and when clickng delete it will delete the specific task schedule of windows
+
+dont use hard coded path:
+ffmpeg_path = r"C:\Users\yakovyos\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin"
+or maybe need to install the
+# Configure ffmpeg path for pydub
+in the working dirrectory
 
 
 
@@ -52,5 +56,8 @@ add a serach bare for finding ringtons in the existing tab
 
 
 great, now i want you to add a new tab called "Schedule Ringtone", and in that tab i want you to implement playing of a selected rington by user at a specific time in day and that it will execute weekly by choosen days that user will select
+
+
+greate i want that the Schedule Ringtone will be independent so tiriger the rington using the task schedule of windows so when clicking on deactivate it will deactivate the specific task schedule of windows and when clickng delete it will delete the specific task schedule of windows
 
 
