@@ -112,15 +112,34 @@ try {
 
 Write-Host ""
 
-# Create FFmpeg directory in C:\
-$installDir = "C:\ffmpeg"
+# Create FFmpeg directory in Program Files (where the project expects it)
+$installDir = "C:\Program Files\ffmpeg"
 Write-Host "Installing FFmpeg to: $installDir" -ForegroundColor Yellow
 Write-Host ""
 
 try {
-    # Create the installation directory
+    # Create the installation directory (requires admin privileges)
     if (-not (Test-Path $installDir)) {
-        New-Item -ItemType Directory -Path $installDir -Force | Out-Null
+        Write-Host "Creating installation directory..." -ForegroundColor Yellow
+        try {
+            New-Item -ItemType Directory -Path $installDir -Force | Out-Null
+        } catch {
+            Write-Host "WARNING: Could not create directory in Program Files" -ForegroundColor Yellow
+            Write-Host "This may require administrator privileges" -ForegroundColor Yellow
+            Write-Host "Trying alternative location..." -ForegroundColor Yellow
+            $installDir = "C:\ffmpeg"
+            try {
+                if (-not (Test-Path $installDir)) {
+                    New-Item -ItemType Directory -Path $installDir -Force | Out-Null
+                }
+            } catch {
+                Write-Host "Trying project directory location..." -ForegroundColor Yellow
+                $installDir = Join-Path (Split-Path $PSScriptRoot -Parent) "ffmpeg"
+                if (-not (Test-Path $installDir)) {
+                    New-Item -ItemType Directory -Path $installDir -Force | Out-Null
+                }
+            }
+        }
     }
     
     # Copy FFmpeg files
@@ -152,7 +171,8 @@ try {
     }
 } catch {
     Write-Host "WARNING: Could not add FFmpeg to system PATH automatically." -ForegroundColor Yellow
-    Write-Host "You may need to add $installDir\bin to your PATH manually." -ForegroundColor Yellow
+    Write-Host "You may need to run this script as Administrator" -ForegroundColor Yellow
+    Write-Host "FFmpeg will still work if the project finds it in the installation directory" -ForegroundColor Yellow
 }
 
 # Clean up temporary files
@@ -185,6 +205,7 @@ try {
         Write-Host "FFmpeg is now ready for MP3 conversion!" -ForegroundColor Green
         Write-Host "Installation path: $installDir\bin" -ForegroundColor Cyan
         Write-Host ""
+        Write-Host "The project will automatically find FFmpeg at this location." -ForegroundColor Green
         Write-Host "Note: You may need to restart your terminal for PATH changes to take effect." -ForegroundColor Yellow
         Write-Host ""
     } else {

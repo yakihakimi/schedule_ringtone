@@ -104,6 +104,7 @@ The start scripts (`start_app.bat`, `start_app.ps1`, `start_backend.bat`, `start
 
 3. **FFmpeg not found**
    - Scripts will automatically install FFmpeg for MP3 conversion
+   - Installs to: `C:\Program Files\ffmpeg\bin` (preferred) or `C:\ffmpeg\bin` (fallback)
    - Manual installation: https://ffmpeg.org
    - Required for pydub MP3 conversion functionality
 

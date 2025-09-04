@@ -6,6 +6,19 @@ Write-Host "========================================" -ForegroundColor Green
 Write-Host "Ringtone Project - Complete Installation" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
+Write-Host "This script will install:" -ForegroundColor Cyan
+Write-Host "  - Python 3.13+ (if not installed)" -ForegroundColor White
+Write-Host "  - Node.js LTS (if not installed)" -ForegroundColor White
+Write-Host "  - FFmpeg (if not installed)" -ForegroundColor White
+Write-Host "  - Python packages (Flask, pydub, pygame, etc.)" -ForegroundColor White
+Write-Host "  - NPM packages (React, TypeScript, etc.)" -ForegroundColor White
+Write-Host ""
+Write-Host "Please ensure you have:" -ForegroundColor Yellow
+Write-Host "  - Internet connection" -ForegroundColor White
+Write-Host "  - Administrator privileges (recommended)" -ForegroundColor White
+Write-Host ""
+Read-Host "Press Enter to continue"
+Write-Host ""
 
 # Check if we're in the right directory (from requirements directory)
 if (-not (Test-Path "..\package.json")) {

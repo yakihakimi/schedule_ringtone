@@ -87,13 +87,28 @@ if not exist "%FFMPEG_FOLDER%" (
 echo FFmpeg extracted to: %FFMPEG_FOLDER%
 echo.
 
-REM Create FFmpeg directory in Program Files
-set INSTALL_DIR=C:\ffmpeg
+REM Create FFmpeg directory in Program Files (where the project expects it)
+set INSTALL_DIR=C:\Program Files\ffmpeg
 echo Installing FFmpeg to: %INSTALL_DIR%
 echo.
 
-REM Create the installation directory
-if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
+REM Create the installation directory (requires admin privileges)
+if not exist "%INSTALL_DIR%" (
+    echo Creating installation directory...
+    mkdir "%INSTALL_DIR%" 2>nul
+    if %errorlevel% neq 0 (
+        echo WARNING: Could not create directory in Program Files
+        echo This may require administrator privileges
+        echo Trying alternative location...
+        set INSTALL_DIR=C:\ffmpeg
+        if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
+        if %errorlevel% neq 0 (
+            echo Trying project directory location...
+            set INSTALL_DIR=%~dp0..\ffmpeg
+            if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
+        )
+    )
+)
 
 REM Copy FFmpeg files
 xcopy "%FFMPEG_FOLDER%\bin\*" "%INSTALL_DIR%\bin\" /E /I /Y >nul
@@ -106,6 +121,11 @@ set PATH=%INSTALL_DIR%\bin;%PATH%
 REM Try to add FFmpeg to system PATH permanently
 echo Adding FFmpeg to system PATH...
 powershell -Command "& {[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';%INSTALL_DIR%\bin', 'Machine')}" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo WARNING: Could not add FFmpeg to system PATH automatically
+    echo You may need to run this script as Administrator
+    echo FFmpeg will still work if the project finds it in the installation directory
+)
 
 REM Clean up temporary files
 echo Cleaning up temporary files...
@@ -127,6 +147,7 @@ if %errorlevel% equ 0 (
     echo FFmpeg is now ready for MP3 conversion!
     echo Installation path: %INSTALL_DIR%\bin
     echo.
+    echo The project will automatically find FFmpeg at this location.
     echo Note: You may need to restart your terminal for PATH changes to take effect.
     echo.
 ) else (

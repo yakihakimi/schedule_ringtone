@@ -74,24 +74,52 @@ echo Installing Node.js...
 echo This may take a few minutes. Please wait...
 echo.
 
-REM Install Node.js silently
-msiexec /i "%INSTALLER_PATH%" /quiet /norestart
+REM Install Node.js silently with proper parameters
+echo Installing Node.js with administrator privileges...
+msiexec /i "%INSTALLER_PATH%" /quiet /norestart /log "%TEMP_DIR%\nodejs_install.log"
 
 REM Wait for installation to complete
 echo Waiting for installation to complete...
-timeout /t 30 /nobreak >nul
+timeout /t 60 /nobreak >nul
+
+REM Check if installation was successful by looking at the log
+if exist "%TEMP_DIR%\nodejs_install.log" (
+    echo Installation log created. Checking for errors...
+    findstr /i "error" "%TEMP_DIR%\nodejs_install.log" >nul
+    if %errorlevel% equ 0 (
+        echo WARNING: Installation log contains errors. Check: %TEMP_DIR%\nodejs_install.log
+    )
+)
 
 REM Clean up installer
 del "%INSTALLER_PATH%" >nul 2>&1
+del "%TEMP_DIR%\nodejs_install.log" >nul 2>&1
 rmdir "%TEMP_DIR%" >nul 2>&1
 
 REM Refresh environment variables
 echo Refreshing environment variables...
+REM Try multiple methods to refresh PATH
 call refreshenv >nul 2>&1
+REM Also try to manually refresh PATH
+for /f "tokens=2*" %%A in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PATH 2^>nul') do set SYSTEM_PATH=%%B
+for /f "tokens=2*" %%A in ('reg query "HKCU\Environment" /v PATH 2^>nul') do set USER_PATH=%%B
+set PATH=%SYSTEM_PATH%;%USER_PATH%
 
 REM Check if installation was successful
 echo.
 echo Verifying installation...
+echo Trying to find Node.js in common installation paths...
+
+REM Check common Node.js installation paths
+set NODEJS_PATHS=C:\Program Files\nodejs;C:\Program Files (x86)\nodejs;%APPDATA%\npm
+for %%P in (%NODEJS_PATHS%) do (
+    if exist "%%P\node.exe" (
+        echo Found Node.js at: %%P
+        set "PATH=%%P;%PATH%"
+    )
+)
+
+REM Try to run node command
 node --version >nul 2>&1
 if %errorlevel% equ 0 (
     echo.
@@ -113,14 +141,56 @@ if %errorlevel% equ 0 (
     echo Node.js installation may have failed!
     echo ========================================
     echo.
-    echo Please try the following:
-    echo 1. Restart your command prompt or PowerShell
-    echo 2. Check if Node.js was installed in Program Files
-    echo 3. Manually download and install from https://nodejs.org
+    echo Trying alternative installation method...
     echo.
-    echo If you just installed Node.js, you may need to restart your terminal.
-    echo.
+    
+    REM Try using winget as fallback
+    winget install OpenJS.NodeJS --silent --accept-package-agreements --accept-source-agreements >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo Winget installation completed. Refreshing PATH...
+        timeout /t 10 /nobreak >nul
+        call refreshenv >nul 2>&1
+        
+        REM Check again
+        node --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            echo.
+            echo ========================================
+            echo Node.js installation completed via winget!
+            echo ========================================
+            echo.
+            echo Node.js version:
+            node --version
+            echo.
+            echo npm version:
+            npm --version
+            echo.
+            echo Node.js is now ready to use!
+            echo.
+        ) else (
+            goto :installation_failed
+        )
+    ) else (
+        goto :installation_failed
+    )
+    goto :end
 )
+
+:installation_failed
+echo.
+echo ========================================
+echo Node.js installation failed!
+echo ========================================
+echo.
+echo Please try the following:
+echo 1. Restart your command prompt or PowerShell
+echo 2. Check if Node.js was installed in Program Files
+echo 3. Manually download and install from https://nodejs.org
+echo 4. Try running this script as Administrator
+echo.
+echo If you just installed Node.js, you may need to restart your terminal.
+echo.
+exit /b 1
 
 :end
 echo.
