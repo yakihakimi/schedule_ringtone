@@ -1,0 +1,5 @@
+# Rules applied
+Flask==2.3.3
+Flask-CORS==4.0.0
+Werkzeug==2.3.7
+pydub==0.25.1
