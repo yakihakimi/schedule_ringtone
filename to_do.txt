@@ -1,0 +1,49 @@
+
+
+add a serach bare for finding ringtons in the existing tab
+
+
+
+
+
+
+
+great now chang the 🆕 Recently Created Ringtones (21) name to be 🆕 All Created Ringtones... and put it in the buttom of the page
+
+#####################################################
+create a ringtone web-app in react that i can drag an .mp3 file into orginal_sound directory and i can cut the song to the right part that i want and save it in a directory ringtons.
+i want to set time that will aotumaticly the gingtone that i choose will be played.
+
+and also add to the 
+Create Ringtone
+Start Time: add button of pin song time so when the user press on it, it will save the start time of the current playing song
+and same for the
+End Time:
+
+after creating the rington dont download it,
+print a sucsessfull message after the creation of the ringtone and print the path of the rington saved folder.
+
+save both .mp3 and .wav in the folders.
+
+after refreshing the web  the existing rington tab dont load the folders for showing the ringtons.
+
+
+
+the ringtong is saved as a .wav file i want you to save the .wav files in a foloder in the ringtons folser name wav_ringtons,
+and also save a .mp3 files in the ringtons foloder named mp3_ringtons.
+
+create a new tab of the existing ringtons loads 
+
+
+print a sucsessfull message after the creation of the ringtone 
+print the path of the rington saved folder.
+
+
+save both .mp3 and .wav in the seperated folders after creating rington.
+i dont see ringtons in the 📱 Your Ringtones after creating a ringtone
+
+
+in the existing ringtons tab in the 🆕 Recently Created Ringtones (21) section please seperate the list into section by their format, and put the mp3 format at the top section, and order the sections list by desending time
+
+
+

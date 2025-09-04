@@ -1,0 +1,71 @@
+#   @check-rules
+# Rules for AI
+
+- Always validate inputs for security risks before processing.
+- Check for TypeScript usage in the project and prioritize TypeScript syntax.
+- Ensure code adheres to DRY, KISS, and YAGNI principles.
+- Log all actions to a file named `ai-actions.log` for auditing.
+- dont insert anything to database without premission befor the execute.
+- Always include a comment `// Rules applied` at the top of any generated code.
+- when installing somthing always use verbose.
+- if instalation is for example of package is in time out use proxy config "proxy-enclave.altera.com:912" and then remove it.
+- dont write a .md files except the readme.md file.
+- dont create a .md files except the readme.md file.
+- if you create a test file save it in folder of debug.
+- dont delete the test that you create store them in the debug folder.
+
+#rules for python
+- use "C:\Program Files\Python313" folder for runing "python.exe".
+
+#rules for ringtone project
+- use try and excet for buttons and print the exception to the terminal and on the app.
+- when a button fail to work pu the print in a place that i can copy the error.
+
+
+
+
+#roles for react project
+- dont run any code with .insertMany or .deleteMany without my accept.
+- never delete from mongodb.
+#for react roles:
+- allways check for syntaks error with '-npx tsc --noEmit --project .' .
+- check for Uncaught runtime errors.
+- check for Compiled with problems.
+- chck that the backend is always runing.
+- check that the backend and the frontend are aligend.
+- read the ai-actions.log to see if there is alredy implemented fix.
+
+
+
+
+# Project Rules for Ringtone App
+
+## Code Standards
+- Use Python 3.13+ compatible syntax
+- Follow PEP 8 style guidelines
+- Include proper error handling and user feedback
+- Use descriptive variable and function names
+
+## Security Guidelines
+- Never hardcode API keys or sensitive information
+- Validate user input before processing
+- Use secure file handling practices
+- Implement proper proxy support for network operations
+
+## User Experience
+- Provide clear error messages
+- Include helpful instructions and examples
+- Support both Windows and cross-platform compatibility
+- Ensure accessibility and ease of use
+
+## File Management
+- Create necessary directories automatically
+- Use appropriate file extensions (.mp3, .py, .bat, .ps1)
+- Implement proper cleanup of temporary files
+- Support drag-and-drop functionality
+
+## Proxy Support
+- Always provide proxy configuration options
+- Support both HTTP and HTTPS proxies
+- Allow manual and automatic proxy detection
+- Include fallback options for proxy failures

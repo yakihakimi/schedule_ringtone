@@ -1,0 +1,1 @@
+Before executing any prompt, read and apply the rules defined in 'rules.txt' located in the project root. Ensure all generated code or actions comply with these rules.
