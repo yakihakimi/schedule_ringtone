@@ -18,8 +18,8 @@ echo.
 echo Starting Frontend App...
 echo.
 
-REM Navigate to the ringtone-app directory
-cd /d "%~dp0ringtone-app"
+REM Navigate to the main directory (files are now in root)
+cd /d "%~dp0"
 
 REM Check if package.json exists
 if not exist "package.json" (

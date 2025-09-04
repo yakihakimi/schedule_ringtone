@@ -28,7 +28,7 @@
 - dont run any code with .insertMany or .deleteMany without my accept.
 - never delete from mongodb.
 #for react roles:
-- allways check for syntaks error with '-npx tsc --noEmit --project .' .
+- allways check for syntaks error with "-npx tsc --noEmit --project ." after changes in a .tsx file.
 - check for Uncaught runtime errors.
 - check for Compiled with problems.
 - chck that the backend is always runing.

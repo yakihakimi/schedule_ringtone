@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Frontend API</title>
+</head>
+<body>
+    <h1>Test Windows Task Scheduler API from Frontend</h1>
+    <button onclick="testTaskSchedulerStatus()">Test Task Scheduler Status</button>
+    <button onclick="testCreateTask()">Test Create Task</button>
+    <div id="output"></div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += '<p>' + new Date().toLocaleTimeString() + ': ' + message + '</p>';
+            console.log(message);
+        }
+        
+        async function testTaskSchedulerStatus() {
+            try {
+                log('🔍 Testing Task Scheduler Status API...');
+                const response = await fetch(`${API_BASE_URL}/api/task-scheduler/status`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                log('📡 Response status: ' + response.status + ' ' + response.statusText);
+                
+                if (!response.ok) {
+                    log('❌ API returned error: ' + response.status);
+                    return;
+                }
+                
+                const result = await response.json();
+                log('📋 API Result: ' + JSON.stringify(result));
+                
+                if (result.success && result.available) {
+                    log('✅ Task Scheduler is available!');
+                } else {
+                    log('❌ Task Scheduler is not available');
+                }
+                
+            } catch (error) {
+                log('❌ Error: ' + error.message);
+            }
+        }
+        
+        async function testCreateTask() {
+            try {
+                log('🔍 Testing Create Task API...');
+                const testData = {
+                    task_name: 'frontend_test_task',
+                    ringtone_path: 'C:\\Windows\\Media\\chimes.wav',
+                    time: '10:30',
+                    days: [1, 2, 3, 4, 5]
+                };
+                
+                const response = await fetch(`${API_BASE_URL}/api/task-scheduler/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                log('📡 Response status: ' + response.status + ' ' + response.statusText);
+                
+                if (!response.ok) {
+                    log('❌ API returned error: ' + response.status);
+                    return;
+                }
+                
+                const result = await response.json();
+                log('📋 API Result: ' + JSON.stringify(result));
+                
+                if (result.success) {
+                    log('✅ Task created successfully!');
+                } else {
+                    log('❌ Task creation failed: ' + result.error);
+                }
+                
+            } catch (error) {
+                log('❌ Error: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

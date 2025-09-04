@@ -16,7 +16,7 @@ echo Python found. Using system Python for pydub compatibility...
 echo.
 
 REM Navigate to backend directory
-cd /d "%~dp0ringtone-app\backend"
+cd /d "%~dp0backend"
 
 echo.
 echo Starting Flask server with system Python...

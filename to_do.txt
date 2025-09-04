@@ -1,14 +1,13 @@
 
 
-add a serach bare for finding ringtons in the existing tab
 
 
 
+The schedule is being created successfully in the local storage
+
+greate i want that the Schedule Ringtone will be independent so tiriger the rington using the task schedule of windows so when clicking on deactivate it will deactivate the specific task schedule of windows and when clickng delete it will delete the specific task schedule of windows
 
 
-
-
-great now chang the 🆕 Recently Created Ringtones (21) name to be 🆕 All Created Ringtones... and put it in the buttom of the page
 
 #####################################################
 create a ringtone web-app in react that i can drag an .mp3 file into orginal_sound directory and i can cut the song to the right part that i want and save it in a directory ringtons.
@@ -45,5 +44,13 @@ i dont see ringtons in the 📱 Your Ringtones after creating a ringtone
 
 in the existing ringtons tab in the 🆕 Recently Created Ringtones (21) section please seperate the list into section by their format, and put the mp3 format at the top section, and order the sections list by desending time
 
+
+great now chang the 🆕 Recently Created Ringtones (21) name to be 🆕 All Created Ringtones... and put it in the buttom of the page
+
+
+add a serach bare for finding ringtons in the existing tab
+
+
+great, now i want you to add a new tab called "Schedule Ringtone", and in that tab i want you to implement playing of a selected rington by user at a specific time in day and that it will execute weekly by choosen days that user will select
 
 
