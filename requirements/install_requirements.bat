@@ -45,8 +45,31 @@ echo pip version:
 pip --version
 echo.
 
-REM Install requirements with verbose output
-echo Installing requirements from backend\requirements.txt...
+REM Check if FFmpeg is available for pydub
+echo Checking FFmpeg for MP3 conversion...
+ffmpeg -version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo.
+    echo WARNING: FFmpeg not found - MP3 conversion may not work!
+    echo Attempting to install FFmpeg automatically...
+    echo.
+    call install_ffmpeg.bat
+    if %errorlevel% neq 0 (
+        echo.
+        echo WARNING: Failed to install FFmpeg automatically!
+        echo MP3 conversion may not work. You can install FFmpeg manually from https://ffmpeg.org
+        echo.
+    ) else (
+        echo.
+        echo FFmpeg installation completed. MP3 conversion should now work!
+        echo.
+    )
+) else (
+    echo FFmpeg is already installed - MP3 conversion ready!
+)
+
+echo.
+echo Installing Python requirements from backend\requirements.txt...
 echo.
 cd ..
 pip install -r backend\requirements.txt --verbose

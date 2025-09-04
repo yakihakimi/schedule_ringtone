@@ -54,8 +54,37 @@ try {
 
 Write-Host ""
 
-# Install requirements with verbose output
-Write-Host "Installing requirements from backend\requirements.txt..." -ForegroundColor Yellow
+# Check if FFmpeg is available for pydub
+Write-Host "Checking FFmpeg for MP3 conversion..." -ForegroundColor Yellow
+try {
+    $ffmpegVersion = ffmpeg -version 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        throw "FFmpeg not found"
+    }
+    Write-Host "FFmpeg is already installed - MP3 conversion ready!" -ForegroundColor Green
+} catch {
+    Write-Host ""
+    Write-Host "WARNING: FFmpeg not found - MP3 conversion may not work!" -ForegroundColor Yellow
+    Write-Host "Attempting to install FFmpeg automatically..." -ForegroundColor Cyan
+    Write-Host ""
+    try {
+        & ".\install_ffmpeg.ps1"
+        if ($LASTEXITCODE -ne 0) {
+            throw "FFmpeg installation failed"
+        }
+        Write-Host ""
+        Write-Host "FFmpeg installation completed. MP3 conversion should now work!" -ForegroundColor Green
+        Write-Host ""
+    } catch {
+        Write-Host ""
+        Write-Host "WARNING: Failed to install FFmpeg automatically!" -ForegroundColor Yellow
+        Write-Host "MP3 conversion may not work. You can install FFmpeg manually from https://ffmpeg.org" -ForegroundColor Yellow
+        Write-Host ""
+    }
+}
+
+Write-Host ""
+Write-Host "Installing Python requirements from backend\requirements.txt..." -ForegroundColor Yellow
 Write-Host ""
 
 try {
