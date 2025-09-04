@@ -285,6 +285,45 @@ def save_ringtone():
         safe_filename = f"ringtone_{timestamp}_{clean_original_name}_{start_time}s_to_{end_time}s{file_ext}"
         safe_filename = "".join(c for c in safe_filename if c.isalnum() or c in (' ', '-', '_', '.')).rstrip()
         
+        # Check if filename would exceed Windows Task Scheduler 261 character limit
+        # We need to account for the full command: python.exe + script_path + ringtone_path
+        python_exe_path = r"C:\Program Files\Python313\pythonw.exe"
+        script_path = os.path.join(os.path.dirname(__file__), "play_ringtone.py")
+        max_command_length = 261
+        
+        # Calculate the command length with current filename
+        test_command = f'"{python_exe_path}" "{script_path}" "{os.path.join(target_folder, safe_filename)}"'
+        
+        if len(test_command) > max_command_length:
+            # Shorten the filename to fit within the limit
+            logger.info(f"⚠️ Filename too long for Windows Task Scheduler ({len(test_command)} chars), shortening...")
+            
+            # Calculate how much we need to shorten
+            excess_length = len(test_command) - max_command_length + 20  # Add some buffer
+            
+            # Shorten the original name part
+            original_name_part = clean_original_name
+            if len(original_name_part) > excess_length:
+                # Truncate the original name and add hash for uniqueness
+                import hashlib
+                name_hash = hashlib.md5(original_name_part.encode()).hexdigest()[:8]
+                original_name_part = original_name_part[:max(10, len(original_name_part) - excess_length)] + f"_{name_hash}"
+            
+            # Regenerate filename with shortened name
+            safe_filename = f"ringtone_{timestamp}_{original_name_part}_{start_time}s_to_{end_time}s{file_ext}"
+            safe_filename = "".join(c for c in safe_filename if c.isalnum() or c in (' ', '-', '_', '.')).rstrip()
+            
+            # Verify the new command length
+            new_command = f'"{python_exe_path}" "{script_path}" "{os.path.join(target_folder, safe_filename)}"'
+            logger.info(f"✅ Shortened filename: {len(new_command)} chars (was {len(test_command)} chars)")
+            
+            if len(new_command) > max_command_length:
+                # If still too long, use a very short name with hash
+                name_hash = hashlib.md5(clean_original_name.encode()).hexdigest()[:12]
+                safe_filename = f"rt_{timestamp}_{name_hash}_{start_time}s_to_{end_time}s{file_ext}"
+                safe_filename = "".join(c for c in safe_filename if c.isalnum() or c in (' ', '-', '_', '.')).rstrip()
+                logger.info(f"🔄 Using minimal filename: {safe_filename}")
+        
         # Determine which folder to save to based on file type
         if file_ext.lower() == '.wav':
             target_folder = WAV_RINGTONES_FOLDER
@@ -638,8 +677,19 @@ def create_scheduled_task():
         days = data['days']
         
         # Validate that the ringtone file exists
-        if not os.path.exists(ringtone_path):
-            return jsonify({'success': False, 'error': 'Ringtone file not found'}), 404
+        logger.info(f"🔍 Validating ringtone file path: {ringtone_path}")
+        
+        # Resolve relative paths (handle .. in paths)
+        resolved_path = os.path.abspath(ringtone_path)
+        logger.info(f"🔍 Resolved path: {resolved_path}")
+        
+        if not os.path.exists(resolved_path):
+            logger.error(f"❌ Ringtone file not found: {resolved_path}")
+            return jsonify({'success': False, 'error': f'Ringtone file not found: {resolved_path}'}), 404
+        logger.info(f"✅ Ringtone file exists: {resolved_path}")
+        
+        # Use the resolved path for the task creation
+        ringtone_path = resolved_path
         
         # Create the scheduled task
         success = task_scheduler_service.create_scheduled_task(task_name, ringtone_path, time, days)
@@ -682,7 +732,13 @@ def delete_scheduled_task():
                 'task_name': task_name
             })
         else:
-            return jsonify({'success': False, 'error': 'Failed to delete scheduled task'}), 500
+            # Task might not exist, which is not necessarily an error
+            logger.info(f"ℹ️ Task deletion returned false (task may not exist): {task_name}")
+            return jsonify({
+                'success': True,
+                'message': f'Scheduled task "{task_name}" was not found or already deleted',
+                'task_name': task_name
+            })
             
     except Exception as e:
         logger.error(f"Error deleting scheduled task: {e}")

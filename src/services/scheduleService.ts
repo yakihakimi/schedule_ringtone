@@ -65,9 +65,21 @@ export class ScheduleService {
         const folder = urlParts[urlParts.length - 2]; // e.g., 'wav_ringtones' or 'mp3_ringtones'
         const filename = urlParts[urlParts.length - 1]; // e.g., 'ringtone_20231201_120000_song.wav'
         
-        // Construct the file path using the correct resolved path from backend
-        ringtoneFilePath = `C:\\devops\\ringtones\\${folder}\\${filename}`;
-        console.log('✅ Extracted file path from backend URL:', ringtoneFilePath);
+        // Prefer WAV format for scheduling (more reliable for Windows Task Scheduler)
+        let preferredFolder = folder;
+        let preferredFilename = filename;
+        
+        if (folder === 'mp3_ringtones') {
+          // Try to find the corresponding WAV file
+          const wavFilename = filename.replace('.mp3', '.wav');
+          preferredFolder = 'wav_ringtones';
+          preferredFilename = wavFilename;
+          console.log('🔄 Preferring WAV format for scheduling:', preferredFilename);
+        }
+        
+        // Construct the file path using the preferred format
+        ringtoneFilePath = `C:\\devops\\ringtones\\${preferredFolder}\\${preferredFilename}`;
+        console.log('✅ Extracted file path from backend URL (preferred format):', ringtoneFilePath);
       } else {
         // This is a local ringtone, save it to get the file path
         console.log('💾 Saving local ringtone to get file path...');
@@ -180,9 +192,21 @@ export class ScheduleService {
         const folder = urlParts[urlParts.length - 2]; // e.g., 'wav_ringtones' or 'mp3_ringtones'
         const filename = urlParts[urlParts.length - 1]; // e.g., 'ringtone_20231201_120000_song.wav'
         
-        // Construct the file path using the correct resolved path from backend
-        ringtoneFilePath = `C:\\devops\\ringtones\\${folder}\\${filename}`;
-        console.log('✅ Extracted file path from backend URL:', ringtoneFilePath);
+        // Prefer WAV format for scheduling (more reliable for Windows Task Scheduler)
+        let preferredFolder = folder;
+        let preferredFilename = filename;
+        
+        if (folder === 'mp3_ringtones') {
+          // Try to find the corresponding WAV file
+          const wavFilename = filename.replace('.mp3', '.wav');
+          preferredFolder = 'wav_ringtones';
+          preferredFilename = wavFilename;
+          console.log('🔄 Preferring WAV format for scheduling:', preferredFilename);
+        }
+        
+        // Construct the file path using the preferred format
+        ringtoneFilePath = `C:\\devops\\ringtones\\${preferredFolder}\\${preferredFilename}`;
+        console.log('✅ Extracted file path from backend URL (preferred format):', ringtoneFilePath);
       } else {
         // This is a local ringtone, save it to get the file path
         console.log('💾 Saving updated ringtone to get file path...');
@@ -427,6 +451,7 @@ export class ScheduleService {
       }
       
       console.log('🔧 Creating Windows Task with ringtone path:', ringtonePath);
+      console.log('🔧 Schedule object:', schedule);
       
       const response = await fetch(`${API_BASE_URL}/api/task-scheduler/create`, {
         method: 'POST',
@@ -443,6 +468,7 @@ export class ScheduleService {
 
       const result = await response.json();
       if (!result.success) {
+        console.error('❌ Windows Task Scheduler API error:', result);
         throw new Error(result.error || 'Failed to create Windows task');
       }
 

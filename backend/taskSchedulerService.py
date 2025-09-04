@@ -23,9 +23,10 @@ class WindowsTaskSchedulerService:
         # No need to ensure task folder exists for root folder
     
     def _get_ringtone_player_script_path(self) -> str:
-        """Get the path to the ringtone player PowerShell script."""
+        """Get the path to the ringtone player Python script."""
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        return os.path.join(script_dir, "play_ringtone.ps1")
+        return os.path.join(script_dir, "play_ringtone.py")
+    
     
     
     def _run_schtasks_command(self, args: List[str]) -> Tuple[bool, str, str]:
@@ -59,63 +60,6 @@ class WindowsTaskSchedulerService:
             logger.error(f"❌ Error running command: {e}")
             return False, "", str(e)
     
-    def _create_ringtone_player_script(self):
-        """Create the PowerShell script that will play ringtones."""
-        script_content = '''# Rules applied
-# PowerShell script to play ringtones via Windows Task Scheduler
-param(
-    [Parameter(Mandatory=$true)]
-    [string]$RingtonePath,
-    
-    [Parameter(Mandatory=$false)]
-    [int]$Volume = 50
-)
-
-try {
-    # Log the action
-    $logFile = Join-Path $env:TEMP "ringtone_scheduler.log"
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    Add-Content -Path $logFile -Value "$timestamp - Playing ringtone: $RingtonePath"
-    
-    # Check if the ringtone file exists
-    if (-not (Test-Path $RingtonePath)) {
-        Add-Content -Path $logFile -Value "$timestamp - ERROR: Ringtone file not found: $RingtonePath"
-        exit 1
-    }
-    
-    # Create WScript.Shell object to play the sound
-    $shell = New-Object -ComObject WScript.Shell
-    
-    # Play the ringtone using Windows Media Player
-    $shell.Run("wmplayer.exe /play /close `"$RingtonePath`"", 0, $false)
-    
-    # Alternative method using PowerShell's built-in sound capabilities
-    # This method works for WAV files
-    if ($RingtonePath -like "*.wav") {
-        Add-Type -AssemblyName System.Windows.Forms
-        $sound = [System.Media.SoundPlayer]::new($RingtonePath)
-        $sound.PlaySync()
-    }
-    
-    Add-Content -Path $logFile -Value "$timestamp - Successfully played ringtone: $RingtonePath"
-    exit 0
-    
-} catch {
-    $errorMsg = $_.Exception.Message
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    $logFile = Join-Path $env:TEMP "ringtone_scheduler.log"
-    Add-Content -Path $logFile -Value "$timestamp - ERROR: $errorMsg"
-    exit 1
-}
-'''
-        
-        try:
-            with open(self.ringtone_player_script, 'w', encoding='utf-8') as f:
-                f.write(script_content)
-            logger.info(f"✅ Created ringtone player script: {self.ringtone_player_script}")
-        except Exception as e:
-            logger.error(f"❌ Error creating ringtone player script: {e}")
-            raise
     
     def create_scheduled_task(self, task_name: str, ringtone_path: str, time: str, days: List[int]) -> bool:
         """
@@ -133,7 +77,8 @@ try {
         try:
             # Ensure the ringtone player script exists
             if not os.path.exists(self.ringtone_player_script):
-                self._create_ringtone_player_script()
+                logger.error(f"❌ Ringtone player script not found: {self.ringtone_player_script}")
+                return False
             
             # Convert days to schtasks format
             day_mapping = {
@@ -148,17 +93,61 @@ try {
             
             day_list = ",".join([day_mapping[day] for day in days])
             
-            # Create the task using batch file wrapper for better window visibility
-            batch_script = os.path.join(os.path.dirname(__file__), "play_ringtone.bat")
-            args = [
-                "/create",
-                "/tn", f"Ringtone_{task_name}",
-                "/tr", f"\"{batch_script}\" \"{ringtone_path}\"",
-                "/sc", "weekly",
-                "/d", day_list,
-                "/st", time,
-                "/f"  # Force creation
-            ]
+            # Check if the command would exceed 261 character limit
+            python_exe = r"C:\Program Files\Python313\pythonw.exe"
+            test_command = f'"{python_exe}" "{self.ringtone_player_script}" "{ringtone_path}"'
+            
+            if len(test_command) > 261:
+                # For existing long filenames, create a Python wrapper script
+                logger.info(f"⚠️ Command too long ({len(test_command)} chars), creating Python wrapper")
+                wrapper_script = os.path.join(os.path.dirname(__file__), "play_ringtone_wrapper.py")
+                
+                # Create a Python wrapper script that imports and calls the main function
+                wrapper_content = f'''#!/usr/bin/env python3
+import sys
+import os
+
+# Add the backend directory to the path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Import and run the play_ringtone script
+from play_ringtone import main
+
+# Set the command line arguments
+sys.argv = ["play_ringtone_wrapper.py", r"{ringtone_path}"]
+
+# Run the main function
+main()
+'''
+                try:
+                    with open(wrapper_script, 'w', encoding='utf-8') as f:
+                        f.write(wrapper_content)
+                    logger.info(f"✅ Created Python wrapper: {wrapper_script}")
+                except Exception as e:
+                    logger.error(f"❌ Error creating Python wrapper: {e}")
+                    return False
+                
+                args = [
+                    "/create",
+                    "/tn", f"Ringtone_{task_name}",
+                    "/tr", f"\"{python_exe}\" \"{wrapper_script}\"",
+                    "/sc", "weekly",
+                    "/d", day_list,
+                    "/st", time,
+                    "/f"  # Force creation
+                ]
+            else:
+                # Use pythonw.exe directly for short filenames
+                logger.info(f"✅ Command length OK ({len(test_command)} chars), using pythonw.exe directly")
+                args = [
+                    "/create",
+                    "/tn", f"Ringtone_{task_name}",
+                    "/tr", f"\"{python_exe}\" \"{self.ringtone_player_script}\" \"{ringtone_path}\"",
+                    "/sc", "weekly",
+                    "/d", day_list,
+                    "/st", time,
+                    "/f"  # Force creation
+                ]
             
             success, stdout, stderr = self._run_schtasks_command(args)
             
@@ -361,14 +350,24 @@ try {
             bool: True if successful, False otherwise
         """
         try:
-            # Use batch file wrapper for better window visibility
-            batch_script = os.path.join(os.path.dirname(__file__), "play_ringtone.bat")
+            # Check if the command would exceed 261 character limit
+            python_exe = r"C:\Program Files\Python313\pythonw.exe"
+            test_command = f'"{python_exe}" "{self.ringtone_player_script}" "{ringtone_path}"'
             
-            # Run the batch script directly
-            cmd = [
-                batch_script,
-                ringtone_path
-            ]
+            if len(test_command) > 261:
+                # Use batch file wrapper for existing ringtones with long filenames
+                logger.info(f"⚠️ Command too long ({len(test_command)} chars), using batch file wrapper")
+                batch_script = os.path.join(os.path.dirname(__file__), "play_ringtone_short.bat")
+                
+                # Create the batch file if it doesn't exist
+                if not os.path.exists(batch_script):
+                    self._create_short_batch_file()
+                
+                cmd = [batch_script, ringtone_path]
+            else:
+                # Use Python file directly for short filenames
+                logger.info(f"✅ Command length OK ({len(test_command)} chars), using Python directly")
+                cmd = [python_exe, self.ringtone_player_script, ringtone_path]
             
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
             

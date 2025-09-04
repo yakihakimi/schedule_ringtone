@@ -38,16 +38,46 @@ logger = logging.getLogger(__name__)
 def play_ringtone_with_pygame(ringtone_path):
     """Play ringtone using pygame (preferred method)"""
     try:
-        import pygame
-        pygame.mixer.init()
-        pygame.mixer.music.load(ringtone_path)
-        pygame.mixer.music.play()
+        import os
+        import sys
         
-        # Wait for the music to finish playing
-        while pygame.mixer.music.get_busy():
-            time.sleep(0.1)
+        # Set environment variables BEFORE importing pygame to suppress messages and windows
+        os.environ['SDL_VIDEODRIVER'] = 'dummy'
+        os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+        os.environ['SDL_AUDIODRIVER'] = 'directsound'  # Use DirectSound for Windows
+        
+        # Redirect stdout and stderr BEFORE importing pygame
+        original_stdout = sys.stdout
+        original_stderr = sys.stderr
+        sys.stdout = open(os.devnull, 'w')
+        sys.stderr = open(os.devnull, 'w')
+        
+        try:
+            import pygame
             
-        pygame.mixer.quit()
+            # Initialize pygame with no display and no video
+            pygame.mixer.pre_init(frequency=22050, size=-16, channels=2, buffer=512)
+            pygame.mixer.init()
+            
+            # Ensure no display is initialized
+            if not pygame.display.get_init():
+                pygame.display.init()
+                pygame.display.quit()  # Immediately quit display
+            
+            pygame.mixer.music.load(ringtone_path)
+            pygame.mixer.music.play()
+            
+            # Wait for the music to finish playing
+            while pygame.mixer.music.get_busy():
+                time.sleep(0.1)
+            pygame.mixer.quit()
+        finally:
+            # Restore stdout and stderr
+            sys.stdout.close()
+            sys.stderr.close()
+            sys.stdout = original_stdout
+            sys.stderr = original_stderr
+        
         logger.info(f"Successfully played ringtone with pygame: {ringtone_path}")
         return True
         
@@ -68,11 +98,8 @@ def play_ringtone_with_winsound(ringtone_path):
             logger.warning("⚠️ winsound only supports WAV files")
             return False
             
-        # Play the sound
-        winsound.PlaySound(ringtone_path, winsound.SND_FILENAME | winsound.SND_ASYNC)
-        
-        # Wait a bit for the sound to start
-        time.sleep(0.5)
+        # Play the sound synchronously (blocking)
+        winsound.PlaySound(ringtone_path, winsound.SND_FILENAME)
         
         logger.info(f"Successfully played ringtone with winsound: {ringtone_path}")
         return True
@@ -112,48 +139,83 @@ def play_ringtone_with_system(ringtone_path):
 
 def main():
     """Main function to play ringtone"""
-    # Add 5-second delay for debugging - so you can see the output window
-    logger.info("=" * 60)
-    logger.info("RINGTONE PLAYBACK SCRIPT STARTED")
-    logger.info("=" * 60)
-    logger.info("Waiting 5 seconds for debugging purposes...")
-    time.sleep(5)
+    # Check if running in verbose mode (default is silent mode)
+    verbose_mode = len(sys.argv) > 2 and sys.argv[2] == '--verbose'
+    silent_mode = not verbose_mode
     
-    if len(sys.argv) != 2:
-        logger.error("Usage: python play_ringtone.py <ringtone_path>")
+    # Create a lock file to prevent multiple instances
+    lock_file = os.path.join(os.path.dirname(__file__), 'play_ringtone.lock')
+    
+    # Check if another instance is already running
+    if os.path.exists(lock_file):
+        try:
+            # Check if the lock file is recent (less than 30 seconds old)
+            lock_age = time.time() - os.path.getmtime(lock_file)
+            if lock_age < 30:
+                logger.error("Another instance of the script is already running")
+                sys.exit(1)
+            else:
+                # Remove stale lock file
+                os.remove(lock_file)
+        except:
+            pass
+    
+    # Create lock file
+    try:
+        with open(lock_file, 'w') as f:
+            f.write(str(os.getpid()))
+    except:
+        pass
+    
+    try:
+        if not silent_mode:
+            logger.info("=" * 60)
+            logger.info("RINGTONE PLAYBACK SCRIPT STARTED")
+            logger.info("=" * 60)
+        
+        if len(sys.argv) < 2:
+            logger.error("Usage: python play_ringtone.py <ringtone_path> [--verbose]")
+            sys.exit(1)
+        
+        ringtone_path = sys.argv[1]
+        
+        # Validate file exists
+        if not os.path.exists(ringtone_path):
+            logger.error(f"Ringtone file not found: {ringtone_path}")
+            sys.exit(1)
+        
+        if not silent_mode:
+            logger.info(f"Attempting to play ringtone: {ringtone_path}")
+            logger.info(f"File size: {os.path.getsize(ringtone_path)} bytes")
+            logger.info(f"File extension: {os.path.splitext(ringtone_path)[1]}")
+        
+        # Try different methods in order of preference
+        # Use winsound first for Windows (no windows, more reliable)
+        methods = [
+            ("winsound", play_ringtone_with_winsound),
+            ("pygame", play_ringtone_with_pygame),
+            ("system", play_ringtone_with_system)
+        ]
+        
+        for method_name, method_func in methods:
+            if not silent_mode:
+                logger.info(f"Trying {method_name} method...")
+            if method_func(ringtone_path):
+                if not silent_mode:
+                    logger.info(f"Successfully played ringtone using {method_name}")
+                sys.exit(0)
+        
+        # If all methods failed
+        logger.error("All playback methods failed")
         sys.exit(1)
-    
-    ringtone_path = sys.argv[1]
-    
-    # Validate file exists
-    if not os.path.exists(ringtone_path):
-        logger.error(f"Ringtone file not found: {ringtone_path}")
-        sys.exit(1)
-    
-    logger.info(f"Attempting to play ringtone: {ringtone_path}")
-    logger.info(f"File size: {os.path.getsize(ringtone_path)} bytes")
-    logger.info(f"File extension: {os.path.splitext(ringtone_path)[1]}")
-    
-    # Try different methods in order of preference
-    methods = [
-        ("pygame", play_ringtone_with_pygame),
-        ("winsound", play_ringtone_with_winsound),
-        ("system", play_ringtone_with_system)
-    ]
-    
-    for method_name, method_func in methods:
-        logger.info(f"Trying {method_name} method...")
-        if method_func(ringtone_path):
-            logger.info(f"Successfully played ringtone using {method_name}")
-            logger.info("Press any key to close this window...")
-            input()  # Wait for user input before closing
-            sys.exit(0)
-    
-    # If all methods failed
-    logger.error("All playback methods failed")
-    logger.info("Press any key to close this window...")
-    input()  # Wait for user input before closing
-    sys.exit(1)
+        
+    finally:
+        # Clean up lock file
+        try:
+            if os.path.exists(lock_file):
+                os.remove(lock_file)
+        except:
+            pass
 
 if __name__ == "__main__":
     main()

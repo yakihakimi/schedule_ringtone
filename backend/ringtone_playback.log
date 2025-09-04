@@ -79,3 +79,234 @@
 2025-09-04 12:55:27,462 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
 2025-09-04 12:55:27,463 - INFO - Successfully played ringtone using pygame
 2025-09-04 12:55:27,464 - INFO - Press any key to close this window...
+2025-09-04 13:12:57,058 - INFO - ============================================================
+2025-09-04 13:12:57,058 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:12:57,059 - INFO - ============================================================
+2025-09-04 13:12:57,059 - INFO - Attempting to play ringtone: test_mp3.mp3
+2025-09-04 13:12:57,059 - INFO - File size: 0 bytes
+2025-09-04 13:12:57,059 - INFO - File extension: .mp3
+2025-09-04 13:12:57,059 - INFO - Trying pygame method...
+2025-09-04 13:12:57,793 - ERROR - Error playing ringtone with pygame: music_drmp3: corrupt mp3 file (bad tags).
+2025-09-04 13:12:57,793 - INFO - Trying winsound method...
+2025-09-04 13:12:57,836 - INFO - Trying system method...
+2025-09-04 13:12:57,837 - WARNING - No suitable system audio player found
+2025-09-04 13:12:57,838 - ERROR - All playback methods failed
+2025-09-04 13:13:21,692 - INFO - ============================================================
+2025-09-04 13:13:21,693 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:13:21,693 - INFO - ============================================================
+2025-09-04 13:13:21,693 - INFO - Attempting to play ringtone: ..\original_sound\Timbaland - The Way I Are (Official Music Video) ft. Keri Hilson, D.O.E., Sebastian.mp3
+2025-09-04 13:13:21,695 - INFO - File size: 5082102 bytes
+2025-09-04 13:13:21,695 - INFO - File extension: .mp3
+2025-09-04 13:13:21,695 - INFO - Trying pygame method...
+2025-09-04 13:25:55,353 - INFO - ============================================================
+2025-09-04 13:25:55,353 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:25:55,353 - INFO - ============================================================
+2025-09-04 13:25:55,354 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:25:55,354 - INFO - File size: 3007636 bytes
+2025-09-04 13:25:55,354 - INFO - File extension: .wav
+2025-09-04 13:25:55,354 - INFO - Trying pygame method...
+2025-09-04 13:26:11,927 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:26:11,928 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:38:00,761 - INFO - ============================================================
+2025-09-04 13:38:00,762 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:38:00,762 - INFO - ============================================================
+2025-09-04 13:38:00,763 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:38:00,763 - INFO - File size: 4102084 bytes
+2025-09-04 13:38:00,763 - INFO - File extension: .wav
+2025-09-04 13:38:00,764 - INFO - Trying pygame method...
+2025-09-04 13:38:22,529 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:38:22,529 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:38:57,655 - INFO - ============================================================
+2025-09-04 13:38:57,656 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:38:57,657 - INFO - ============================================================
+2025-09-04 13:38:57,657 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:38:57,658 - INFO - File size: 4102084 bytes
+2025-09-04 13:38:57,658 - INFO - File extension: .wav
+2025-09-04 13:38:57,658 - INFO - Trying pygame method...
+2025-09-04 13:41:43,542 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:41:52,190 - INFO - ============================================================
+2025-09-04 13:41:52,191 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:41:52,192 - INFO - ============================================================
+2025-09-04 13:41:52,193 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:41:52,194 - INFO - File size: 4102084 bytes
+2025-09-04 13:41:52,194 - INFO - File extension: .wav
+2025-09-04 13:41:52,194 - INFO - Trying pygame method...
+2025-09-04 13:42:14,751 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:42:14,751 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:44:01,508 - INFO - ============================================================
+2025-09-04 13:44:01,509 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:44:01,509 - INFO - ============================================================
+2025-09-04 13:44:01,509 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:44:01,509 - INFO - File size: 4102084 bytes
+2025-09-04 13:44:01,510 - INFO - File extension: .wav
+2025-09-04 13:44:01,510 - INFO - Trying pygame method...
+2025-09-04 13:44:23,236 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:44:23,237 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:46:17,083 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:46:41,285 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:48:01,607 - INFO - ============================================================
+2025-09-04 13:48:01,607 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:48:01,608 - INFO - ============================================================
+2025-09-04 13:48:01,608 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:48:01,608 - INFO - File size: 4102084 bytes
+2025-09-04 13:48:01,609 - INFO - File extension: .wav
+2025-09-04 13:48:01,609 - INFO - Trying pygame method...
+2025-09-04 13:48:23,309 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:48:23,309 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:50:25,472 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:52:01,327 - INFO - ============================================================
+2025-09-04 13:52:01,328 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:52:01,328 - INFO - ============================================================
+2025-09-04 13:52:01,328 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:52:01,329 - INFO - File size: 4102084 bytes
+2025-09-04 13:52:01,329 - INFO - File extension: .wav
+2025-09-04 13:52:01,329 - INFO - Trying pygame method...
+2025-09-04 13:52:23,062 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:52:23,063 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:53:29,635 - INFO - ============================================================
+2025-09-04 13:53:29,636 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:53:29,636 - INFO - ============================================================
+2025-09-04 13:53:29,636 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:53:29,637 - INFO - File size: 3007636 bytes
+2025-09-04 13:53:29,637 - INFO - File extension: .wav
+2025-09-04 13:53:29,637 - INFO - Trying pygame method...
+2025-09-04 13:53:45,795 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:53:45,795 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:54:59,973 - INFO - Starting pygame playback function
+2025-09-04 13:54:59,973 - INFO - Initializing pygame mixer
+2025-09-04 13:55:00,205 - INFO - Loading music file
+2025-09-04 13:55:00,207 - INFO - Starting music playback
+2025-09-04 13:55:00,207 - INFO - Waiting for playback to complete
+2025-09-04 13:55:15,873 - INFO - Playback completed, quitting pygame
+2025-09-04 13:55:15,992 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:56:00,728 - INFO - ============================================================
+2025-09-04 13:56:00,728 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:56:00,728 - INFO - ============================================================
+2025-09-04 13:56:00,729 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:56:00,729 - INFO - File size: 4102084 bytes
+2025-09-04 13:56:00,730 - INFO - File extension: .wav
+2025-09-04 13:56:00,730 - INFO - Trying pygame method...
+2025-09-04 13:56:00,905 - INFO - Starting pygame playback function
+2025-09-04 13:56:00,905 - INFO - Initializing pygame mixer
+2025-09-04 13:56:01,035 - INFO - Loading music file
+2025-09-04 13:56:01,036 - INFO - Starting music playback
+2025-09-04 13:56:01,036 - INFO - Waiting for playback to complete
+2025-09-04 13:56:22,414 - INFO - Playback completed, quitting pygame
+2025-09-04 13:56:22,520 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:56:22,520 - INFO - Successfully played ringtone using pygame
+2025-09-04 13:57:05,401 - INFO - Starting pygame playback function
+2025-09-04 13:57:05,402 - INFO - Initializing pygame mixer
+2025-09-04 13:57:05,661 - INFO - Loading music file
+2025-09-04 13:57:05,662 - INFO - Starting music playback
+2025-09-04 13:57:05,663 - INFO - Waiting for playback to complete
+2025-09-04 13:57:27,051 - INFO - Playback completed, quitting pygame
+2025-09-04 13:57:27,172 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:58:00,851 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 13:59:00,850 - INFO - ============================================================
+2025-09-04 13:59:00,850 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 13:59:00,851 - INFO - ============================================================
+2025-09-04 13:59:00,851 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:59:00,851 - INFO - File size: 4102084 bytes
+2025-09-04 13:59:00,852 - INFO - File extension: .wav
+2025-09-04 13:59:00,852 - INFO - Trying pygame method...
+2025-09-04 13:59:22,671 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 13:59:22,671 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:02:59,899 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:04:09,127 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:04:10,324 - ERROR - Another instance of the script is already running
+2025-09-04 14:04:25,453 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:04:26,485 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:04:32,257 - INFO - ============================================================
+2025-09-04 14:04:32,258 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:04:32,258 - INFO - ============================================================
+2025-09-04 14:04:32,258 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:04:32,259 - INFO - File size: 3007636 bytes
+2025-09-04 14:04:32,259 - INFO - File extension: .wav
+2025-09-04 14:04:32,260 - INFO - Trying pygame method...
+2025-09-04 14:04:48,482 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:04:48,482 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:06:00,728 - INFO - ============================================================
+2025-09-04 14:06:00,728 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:06:00,728 - INFO - ============================================================
+2025-09-04 14:06:00,729 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:06:00,729 - INFO - File size: 4102084 bytes
+2025-09-04 14:06:00,729 - INFO - File extension: .wav
+2025-09-04 14:06:00,730 - INFO - Trying pygame method...
+2025-09-04 14:06:22,514 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:06:22,515 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:07:01,110 - INFO - ============================================================
+2025-09-04 14:07:01,110 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:07:01,111 - INFO - ============================================================
+2025-09-04 14:07:01,111 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:07:01,112 - INFO - File size: 4102084 bytes
+2025-09-04 14:07:01,112 - INFO - File extension: .wav
+2025-09-04 14:07:01,112 - INFO - Trying pygame method...
+2025-09-04 14:08:00,985 - INFO - ============================================================
+2025-09-04 14:08:00,986 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:08:00,986 - INFO - ============================================================
+2025-09-04 14:08:00,987 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:08:00,987 - INFO - File size: 4102084 bytes
+2025-09-04 14:08:00,987 - INFO - File extension: .wav
+2025-09-04 14:08:00,988 - INFO - Trying pygame method...
+2025-09-04 14:08:22,698 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:08:22,699 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:12:33,297 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:12:38,166 - INFO - ============================================================
+2025-09-04 14:12:38,166 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:12:38,166 - INFO - ============================================================
+2025-09-04 14:12:38,167 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:12:38,167 - INFO - File size: 3007636 bytes
+2025-09-04 14:12:38,168 - INFO - File extension: .wav
+2025-09-04 14:12:38,168 - INFO - Trying pygame method...
+2025-09-04 14:12:54,300 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:12:54,300 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:15:02,223 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:15:07,398 - INFO - ============================================================
+2025-09-04 14:15:07,399 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:15:07,399 - INFO - ============================================================
+2025-09-04 14:15:07,400 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:15:07,400 - INFO - File size: 3007636 bytes
+2025-09-04 14:15:07,400 - INFO - File extension: .wav
+2025-09-04 14:15:07,401 - INFO - Trying pygame method...
+2025-09-04 14:15:23,567 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:15:23,567 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:17:22,787 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:18:23,489 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:19:02,262 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:19:39,872 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:19:46,607 - INFO - ============================================================
+2025-09-04 14:19:46,608 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:19:46,609 - INFO - ============================================================
+2025-09-04 14:19:46,609 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:19:46,610 - INFO - File size: 3007636 bytes
+2025-09-04 14:19:46,610 - INFO - File extension: .wav
+2025-09-04 14:19:46,610 - INFO - Trying pygame method...
+2025-09-04 14:20:02,801 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:20:02,802 - INFO - Successfully played ringtone using pygame
+2025-09-04 14:21:23,167 - INFO - Successfully played ringtone with pygame: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:22:28,775 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:22:41,698 - INFO - ============================================================
+2025-09-04 14:22:41,698 - INFO - RINGTONE PLAYBACK SCRIPT STARTED
+2025-09-04 14:22:41,698 - INFO - ============================================================
+2025-09-04 14:22:41,698 - INFO - Attempting to play ringtone: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:22:41,699 - INFO - File size: 3007636 bytes
+2025-09-04 14:22:41,699 - INFO - File extension: .wav
+2025-09-04 14:22:41,699 - INFO - Trying winsound method...
+2025-09-04 14:22:57,679 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:22:57,680 - INFO - Successfully played ringtone using winsound
+2025-09-04 14:24:22,468 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:27:28,469 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:27:55,671 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:29:08,078 - ERROR - Another instance of the script is already running
+2025-09-04 14:29:17,773 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:29:24,000 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:36:29,220 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:36:56,781 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:38:22,921 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 14:50:35,857 - ERROR - Ringtone file not found: C:\devops\ringtones\wav_ringtones\test.wav
+2025-09-04 14:52:52,942 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:57:04,374 - ERROR - Another instance of the script is already running
+2025-09-04 14:57:11,255 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:57:20,325 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_125025_Timbaland - The Way I Are Official Music Video ft. Keri Hilson D.O.E. Sebastian_42.843031s_to_58.507576s.wav
+2025-09-04 14:59:22,308 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
+2025-09-04 15:03:22,287 - INFO - Successfully played ringtone with winsound: C:\devops\ringtones\wav_ringtones\ringtone_20250904_091812_Pras feat. Ol Dirty Bastard  Mýa - Ghetto Supastar That Is What You Are OfficialHD Music Video_80.20959s_to_101.574381s.wav
