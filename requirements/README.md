@@ -14,6 +14,12 @@ This directory contains all the installation scripts for the Ringtone Creator pr
 - `install_npm_requirements.bat` - Installs npm requirements only (Windows)
 - `install_npm_requirements.ps1` - Installs npm requirements only (PowerShell)
 
+### **Runtime Installation Scripts**
+- `install_python.bat` - Installs Python 3.13+ if not found (Windows)
+- `install_python.ps1` - Installs Python 3.13+ if not found (PowerShell)
+- `install_nodejs.bat` - Installs Node.js LTS if not found (Windows)
+- `install_nodejs.ps1` - Installs Node.js LTS if not found (PowerShell)
+
 ## 🚀 Usage
 
 ### **Option 1: Install Everything (Recommended)**
@@ -27,11 +33,17 @@ requirements\install_all_requirements.bat
 
 ### **Option 2: Install Separately**
 ```bash
-# Install Python requirements only
+# Install Python requirements only (includes Python installation if needed)
 requirements\install_requirements.bat
 
-# Install npm requirements only
+# Install npm requirements only (includes Node.js installation if needed)
 requirements\install_npm_requirements.bat
+
+# Install just Python runtime
+requirements\install_python.bat
+
+# Install just Node.js runtime
+requirements\install_nodejs.bat
 ```
 
 ### **Option 3: Automatic Installation**
@@ -58,21 +70,26 @@ The start scripts (`start_app.bat`, `start_app.ps1`, `start_backend.bat`, `start
 ## 🔧 Features
 
 - **Automatic Detection** - Checks if requirements are already installed
+- **Runtime Installation** - Automatically installs Python and Node.js if missing
 - **Verbose Output** - Shows detailed installation progress
 - **Error Handling** - Clear error messages and troubleshooting tips
 - **Cross-Platform** - Works on Windows with both CMD and PowerShell
 - **Smart Retry** - Start scripts automatically retry after installing requirements
+- **Internet Connectivity** - Checks for internet connection before downloading
+- **Clean Installation** - Downloads and installs official versions from official sources
 
 ## 🛠️ Troubleshooting
 
 ### **Common Issues**
 
 1. **Python not found**
-   - Install Python 3.13+ from https://python.org
+   - Scripts will automatically install Python 3.13.1
+   - Manual installation: https://python.org
    - Make sure Python is added to PATH
 
 2. **Node.js not found**
-   - Install Node.js from https://nodejs.org
+   - Scripts will automatically install Node.js LTS (v20.11.0)
+   - Manual installation: https://nodejs.org
    - Make sure npm is available
 
 3. **Permission errors**

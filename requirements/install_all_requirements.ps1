@@ -25,7 +25,7 @@ if (-not (Test-Path "..\backend\requirements.txt")) {
 Write-Host "Project structure verified" -ForegroundColor Green
 Write-Host ""
 
-# Install Python requirements
+# Install Python requirements (includes Python installation if needed)
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Installing Python Requirements" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
@@ -44,7 +44,7 @@ try {
     exit 1
 }
 
-# Install npm requirements
+# Install npm requirements (includes Node.js installation if needed)
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "Installing NPM Requirements" -ForegroundColor Cyan

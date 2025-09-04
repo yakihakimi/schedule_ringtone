@@ -12,9 +12,20 @@ REM Check if Python is available
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo ERROR: Python is not installed or not in PATH
-    echo Please install Python 3.13+ from https://python.org
-    pause
-    exit /b 1
+    echo.
+    echo Attempting to install Python automatically...
+    echo.
+    call install_python.bat
+    if %errorlevel% neq 0 (
+        echo.
+        echo ERROR: Failed to install Python automatically!
+        echo Please install Python 3.13+ manually from https://python.org
+        pause
+        exit /b 1
+    )
+    echo.
+    echo Python installation completed. Continuing with Python requirements...
+    echo.
 )
 
 echo Python version:

@@ -16,9 +16,24 @@ try {
     Write-Host "Python version: $pythonVersion" -ForegroundColor Cyan
 } catch {
     Write-Host "ERROR: Python is not installed or not in PATH" -ForegroundColor Red
-    Write-Host "Please install Python 3.13+ from https://python.org" -ForegroundColor Yellow
-    Read-Host "Press Enter to exit"
-    exit 1
+    Write-Host ""
+    Write-Host "Attempting to install Python automatically..." -ForegroundColor Yellow
+    Write-Host ""
+    try {
+        & ".\install_python.ps1"
+        if ($LASTEXITCODE -ne 0) {
+            throw "Python installation failed"
+        }
+        Write-Host ""
+        Write-Host "Python installation completed. Continuing with Python requirements..." -ForegroundColor Green
+        Write-Host ""
+    } catch {
+        Write-Host ""
+        Write-Host "ERROR: Failed to install Python automatically!" -ForegroundColor Red
+        Write-Host "Please install Python 3.13+ manually from https://python.org" -ForegroundColor Yellow
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
 }
 
 Write-Host ""

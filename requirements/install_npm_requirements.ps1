@@ -16,9 +16,24 @@ try {
     Write-Host "Node.js version: $nodeVersion" -ForegroundColor Cyan
 } catch {
     Write-Host "ERROR: Node.js is not installed or not in PATH" -ForegroundColor Red
-    Write-Host "Please install Node.js from https://nodejs.org" -ForegroundColor Yellow
-    Read-Host "Press Enter to exit"
-    exit 1
+    Write-Host ""
+    Write-Host "Attempting to install Node.js automatically..." -ForegroundColor Yellow
+    Write-Host ""
+    try {
+        & ".\install_nodejs.ps1"
+        if ($LASTEXITCODE -ne 0) {
+            throw "Node.js installation failed"
+        }
+        Write-Host ""
+        Write-Host "Node.js installation completed. Continuing with npm requirements..." -ForegroundColor Green
+        Write-Host ""
+    } catch {
+        Write-Host ""
+        Write-Host "ERROR: Failed to install Node.js automatically!" -ForegroundColor Red
+        Write-Host "Please install Node.js manually from https://nodejs.org" -ForegroundColor Yellow
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
 }
 
 Write-Host ""

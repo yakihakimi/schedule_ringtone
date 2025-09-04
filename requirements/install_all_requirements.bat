@@ -26,7 +26,7 @@ if not exist "..\backend\requirements.txt" (
 echo Project structure verified
 echo.
 
-REM Install Python requirements
+REM Install Python requirements (includes Python installation if needed)
 echo ========================================
 echo Installing Python Requirements
 echo ========================================
@@ -41,7 +41,7 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Install npm requirements
+REM Install npm requirements (includes Node.js installation if needed)
 echo.
 echo ========================================
 echo Installing NPM Requirements
