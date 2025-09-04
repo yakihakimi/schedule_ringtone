@@ -17,8 +17,35 @@ Write-Host "Using system Python for pydub compatibility..." -ForegroundColor Cya
 Write-Host ""
 
 # Navigate to backend directory
-$backendDir = Join-Path $PSScriptRoot "ringtone-app\backend"
-Set-Location $backendDir
+Set-Location "backend"
+
+# Check if Python requirements are installed
+Write-Host "Checking Python requirements..." -ForegroundColor Yellow
+try {
+    python -c "import flask, flask_cors, pydub, pygame" 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Requirements missing"
+    }
+} catch {
+    Write-Host ""
+    Write-Host "WARNING: Some Python requirements are missing!" -ForegroundColor Yellow
+    Write-Host "Attempting to install requirements..." -ForegroundColor Cyan
+    Write-Host ""
+    try {
+        & "..\requirements\install_requirements.ps1"
+        if ($LASTEXITCODE -ne 0) {
+            throw "Installation failed"
+        }
+    } catch {
+        Write-Host ""
+        Write-Host "ERROR: Failed to install Python requirements!" -ForegroundColor Red
+        Write-Host "Please check the error messages above." -ForegroundColor Yellow
+        Write-Host ""
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
+    Write-Host ""
+}
 
 Write-Host ""
 Write-Host "Starting Flask server with system Python..." -ForegroundColor Green

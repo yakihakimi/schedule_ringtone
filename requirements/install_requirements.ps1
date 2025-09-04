@@ -40,11 +40,12 @@ try {
 Write-Host ""
 
 # Install requirements with verbose output
-Write-Host "Installing requirements from requirements.txt..." -ForegroundColor Yellow
+Write-Host "Installing requirements from backend\requirements.txt..." -ForegroundColor Yellow
 Write-Host ""
 
 try {
-    pip install -r requirements.txt --verbose
+    Set-Location ..
+    pip install -r backend\requirements.txt --verbose
     if ($LASTEXITCODE -eq 0) {
         Write-Host ""
         Write-Host "========================================" -ForegroundColor Green

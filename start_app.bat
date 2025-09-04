@@ -34,7 +34,8 @@ REM Check if node_modules exists, if not install dependencies
 if not exist "node_modules" (
     echo Installing dependencies...
     echo.
-    npm install
+    echo Attempting to install npm dependencies...
+    call requirements\install_npm_requirements.bat
     if errorlevel 1 (
         echo ERROR: Failed to install dependencies!
         echo.
@@ -56,10 +57,29 @@ echo.
 
 npm start
 
-REM If npm start fails, pause to show error
+REM If npm start fails, try to install requirements and retry
 if errorlevel 1 (
     echo.
     echo ERROR: Failed to start the development server!
+    echo Attempting to install missing requirements...
     echo.
-    pause
+    call requirements\install_npm_requirements.bat
+    if errorlevel 1 (
+        echo.
+        echo ERROR: Failed to install requirements!
+        echo Please check the error messages above.
+        echo.
+        pause
+        exit /b 1
+    )
+    echo.
+    echo Retrying to start the development server...
+    echo.
+    npm start
+    if errorlevel 1 (
+        echo.
+        echo ERROR: Still failed to start after installing requirements!
+        echo.
+        pause
+    )
 )

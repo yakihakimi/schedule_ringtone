@@ -35,9 +35,10 @@ pip --version
 echo.
 
 REM Install requirements with verbose output
-echo Installing requirements from requirements.txt...
+echo Installing requirements from backend\requirements.txt...
 echo.
-pip install -r requirements.txt --verbose
+cd ..
+pip install -r backend\requirements.txt --verbose
 
 if %errorlevel% equ 0 (
     echo.

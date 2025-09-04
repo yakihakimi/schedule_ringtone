@@ -54,8 +54,9 @@ if (-not (Test-Path "package.json")) {
 if (-not (Test-Path "node_modules")) {
     Write-Host "Installing dependencies..." -ForegroundColor Yellow
     Write-Host ""
+    Write-Host "Attempting to install npm dependencies..." -ForegroundColor Cyan
     try {
-        npm install
+        & ".\requirements\install_npm_requirements.ps1"
         if ($LASTEXITCODE -ne 0) {
             throw "npm install failed"
         }
@@ -86,7 +87,29 @@ try {
 catch {
     Write-Host ""
     Write-Host "ERROR: Failed to start the development server!" -ForegroundColor Red
-    Write-Host $_.Exception.Message -ForegroundColor Red
+    Write-Host "Attempting to install missing requirements..." -ForegroundColor Yellow
     Write-Host ""
-    Read-Host "Press Enter to continue"
+    try {
+        & ".\requirements\install_npm_requirements.ps1"
+        if ($LASTEXITCODE -ne 0) {
+            throw "Requirements installation failed"
+        }
+        Write-Host ""
+        Write-Host "Retrying to start the development server..." -ForegroundColor Green
+        Write-Host ""
+        npm start
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host ""
+            Write-Host "ERROR: Still failed to start after installing requirements!" -ForegroundColor Red
+            Write-Host ""
+            Read-Host "Press Enter to continue"
+        }
+    }
+    catch {
+        Write-Host ""
+        Write-Host "ERROR: Failed to install requirements!" -ForegroundColor Red
+        Write-Host "Please check the error messages above." -ForegroundColor Yellow
+        Write-Host ""
+        Read-Host "Press Enter to continue"
+    }
 }
