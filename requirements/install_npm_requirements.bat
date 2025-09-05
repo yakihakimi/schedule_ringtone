@@ -18,8 +18,22 @@ if %errorlevel% neq 0 (
     call "%~dp0install_nodejs.bat"
     if %errorlevel% neq 0 (
         echo.
+        echo ========================================
         echo ERROR: Failed to install Node.js automatically!
-        echo Please install Node.js manually from https://nodejs.org
+        echo ========================================
+        echo.
+        echo This could be due to:
+        echo   - Insufficient administrator privileges
+        echo   - Network connectivity issues
+        echo   - Antivirus software blocking the installation
+        echo   - Corrupted download
+        echo.
+        echo Please try the following:
+        echo   1. Run this script as Administrator
+        echo   2. Check your internet connection
+        echo   3. Temporarily disable antivirus software
+        echo   4. Download Node.js manually from https://nodejs.org
+        echo.
         pause
         exit /b 1
     )

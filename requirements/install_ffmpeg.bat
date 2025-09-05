@@ -110,10 +110,16 @@ if not exist "%INSTALL_DIR%" (
     )
 )
 
+REM Create subdirectories first
+if not exist "%INSTALL_DIR%\bin" mkdir "%INSTALL_DIR%\bin"
+if not exist "%INSTALL_DIR%\doc" mkdir "%INSTALL_DIR%\doc"
+if not exist "%INSTALL_DIR%\presets" mkdir "%INSTALL_DIR%\presets"
+
 REM Copy FFmpeg files
-xcopy "%FFMPEG_FOLDER%\bin\*" "%INSTALL_DIR%\bin\" /E /I /Y >nul
-xcopy "%FFMPEG_FOLDER%\doc\*" "%INSTALL_DIR%\doc\" /E /I /Y >nul
-xcopy "%FFMPEG_FOLDER%\presets\*" "%INSTALL_DIR%\presets\" /E /I /Y >nul
+echo Copying FFmpeg files...
+xcopy "%FFMPEG_FOLDER%\bin\*" "%INSTALL_DIR%\bin\" /E /I /Y
+xcopy "%FFMPEG_FOLDER%\doc\*" "%INSTALL_DIR%\doc\" /E /I /Y
+xcopy "%FFMPEG_FOLDER%\presets\*" "%INSTALL_DIR%\presets\" /E /I /Y
 
 REM Add FFmpeg to PATH (current session)
 set PATH=%INSTALL_DIR%\bin;%PATH%

@@ -35,9 +35,24 @@ if not exist "node_modules" (
     echo Installing dependencies...
     echo.
     echo Attempting to install npm dependencies...
+    echo This may take several minutes if Node.js needs to be installed...
+    echo.
     call "%~dp0requirements\install_npm_requirements.bat"
     if errorlevel 1 (
+        echo.
+        echo ========================================
         echo ERROR: Failed to install dependencies!
+        echo ========================================
+        echo.
+        echo This could be due to:
+        echo   - Node.js installation failed
+        echo   - Network connectivity issues
+        echo   - Permission problems
+        echo   - Corrupted npm cache
+        echo.
+        echo Please try running the installation manually:
+        echo   1. Run: requirements\install_nodejs.bat
+        echo   2. Then run: requirements\install_npm_requirements.bat
         echo.
         pause
         exit /b 1
