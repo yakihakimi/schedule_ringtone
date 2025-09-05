@@ -87,27 +87,15 @@ if not exist "%FFMPEG_FOLDER%" (
 echo FFmpeg extracted to: %FFMPEG_FOLDER%
 echo.
 
-REM Create FFmpeg directory in Program Files (where the project expects it)
-set INSTALL_DIR=C:\Program Files\ffmpeg
-echo Installing FFmpeg to: %INSTALL_DIR%
+REM Install FFmpeg to project directory (no admin privileges needed)
+set INSTALL_DIR=%~dp0..\ffmpeg
+echo Installing FFmpeg to project directory: %INSTALL_DIR%
 echo.
 
-REM Create the installation directory (requires admin privileges)
+REM Create the installation directory in project folder
 if not exist "%INSTALL_DIR%" (
     echo Creating installation directory...
-    mkdir "%INSTALL_DIR%" 2>nul
-    if %errorlevel% neq 0 (
-        echo WARNING: Could not create directory in Program Files
-        echo This may require administrator privileges
-        echo Trying alternative location...
-        set INSTALL_DIR=C:\ffmpeg
-        if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
-        if %errorlevel% neq 0 (
-            echo Trying project directory location...
-            set INSTALL_DIR=%~dp0..\ffmpeg
-            if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
-        )
-    )
+    mkdir "%INSTALL_DIR%"
 )
 
 REM Create subdirectories first
@@ -123,15 +111,11 @@ xcopy "%FFMPEG_FOLDER%\presets\*" "%INSTALL_DIR%\presets\" /E /I /Y
 
 REM Add FFmpeg to PATH (current session)
 set PATH=%INSTALL_DIR%\bin;%PATH%
+echo FFmpeg added to current session PATH
 
-REM Try to add FFmpeg to system PATH permanently
-echo Adding FFmpeg to system PATH...
-powershell -Command "& {[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';%INSTALL_DIR%\bin', 'Machine')}" >nul 2>&1
-if %errorlevel% neq 0 (
-    echo WARNING: Could not add FFmpeg to system PATH automatically
-    echo You may need to run this script as Administrator
-    echo FFmpeg will still work if the project finds it in the installation directory
-)
+REM Note: We don't add to system PATH since we're installing to project directory
+REM The backend server will automatically find FFmpeg in the project directory
+echo FFmpeg will be automatically detected by the backend server
 
 REM Clean up temporary files
 echo Cleaning up temporary files...
@@ -140,34 +124,45 @@ rmdir /s /q "%TEMP_DIR%" >nul 2>&1
 REM Check if installation was successful
 echo.
 echo Verifying installation...
-ffmpeg -version >nul 2>&1
-if %errorlevel% equ 0 (
-    echo.
-    echo ========================================
-    echo FFmpeg installation completed successfully!
-    echo ========================================
-    echo.
-    echo FFmpeg version:
-    ffmpeg -version 2>&1 | findstr "ffmpeg version"
-    echo.
-    echo FFmpeg is now ready for MP3 conversion!
-    echo Installation path: %INSTALL_DIR%\bin
-    echo.
-    echo The project will automatically find FFmpeg at this location.
-    echo Note: You may need to restart your terminal for PATH changes to take effect.
-    echo.
+
+REM Test FFmpeg directly from the installation directory
+if exist "%INSTALL_DIR%\bin\ffmpeg.exe" (
+    "%INSTALL_DIR%\bin\ffmpeg.exe" -version >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo.
+        echo ========================================
+        echo FFmpeg installation completed successfully!
+        echo ========================================
+        echo.
+        echo FFmpeg version:
+        "%INSTALL_DIR%\bin\ffmpeg.exe" -version 2>&1 | findstr "ffmpeg version"
+        echo.
+        echo FFmpeg is now ready for MP3 conversion!
+        echo Installation path: %INSTALL_DIR%\bin
+        echo.
+        echo The backend server will automatically find FFmpeg at this location.
+        echo.
+    ) else (
+        echo.
+        echo ========================================
+        echo FFmpeg installation may have failed!
+        echo ========================================
+        echo.
+        echo FFmpeg executable found but failed to run.
+        echo.
+    )
 ) else (
     echo.
     echo ========================================
     echo FFmpeg installation may have failed!
     echo ========================================
     echo.
-    echo Please try the following:
-    echo 1. Restart your command prompt or PowerShell
-    echo 2. Check if FFmpeg was installed in C:\ffmpeg\bin
-    echo 3. Manually download and install from https://ffmpeg.org
+    echo FFmpeg executable not found at: %INSTALL_DIR%\bin\ffmpeg.exe
     echo.
-    echo If you just installed FFmpeg, you may need to restart your terminal.
+    echo Please try the following:
+    echo 1. Check if FFmpeg was installed in %INSTALL_DIR%\bin
+    echo 2. Manually download and install from https://ffmpeg.org
+    echo 3. Run this installation script again
     echo.
 )
 

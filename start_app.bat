@@ -30,14 +30,14 @@ if not exist "package.json" (
     exit /b 1
 )
 
-REM Check if node_modules exists, if not install dependencies
+REM Check if all requirements are installed, if not install them
 if not exist "node_modules" (
-    echo Installing dependencies...
+    echo Installing all dependencies...
     echo.
-    echo Attempting to install npm dependencies...
-    echo This may take several minutes if Node.js needs to be installed...
+    echo This will install Python, Node.js, FFmpeg, and all required packages...
+    echo This may take several minutes...
     echo.
-    call "%~dp0requirements\install_npm_requirements.bat"
+    call "%~dp0requirements\install_all_requirements.bat"
     if errorlevel 1 (
         echo.
         echo ========================================
@@ -45,14 +45,15 @@ if not exist "node_modules" (
         echo ========================================
         echo.
         echo This could be due to:
+        echo   - Python installation failed
         echo   - Node.js installation failed
+        echo   - FFmpeg installation failed
         echo   - Network connectivity issues
         echo   - Permission problems
-        echo   - Corrupted npm cache
         echo.
         echo Please try running the installation manually:
-        echo   1. Run: requirements\install_nodejs.bat
-        echo   2. Then run: requirements\install_npm_requirements.bat
+        echo   1. Run: requirements\install_all_requirements.bat
+        echo   2. Or run individual installers in the requirements folder
         echo.
         pause
         exit /b 1
@@ -72,13 +73,13 @@ echo.
 
 npm start
 
-REM If npm start fails, try to install requirements and retry
+REM If npm start fails, try to install all requirements and retry
 if errorlevel 1 (
     echo.
     echo ERROR: Failed to start the development server!
-    echo Attempting to install missing requirements...
+    echo Attempting to install all missing requirements...
     echo.
-    call "%~dp0requirements\install_npm_requirements.bat"
+    call "%~dp0requirements\install_all_requirements.bat"
     if errorlevel 1 (
         echo.
         echo ERROR: Failed to install requirements!

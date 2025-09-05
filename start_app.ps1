@@ -41,20 +41,33 @@ if (-not (Test-Path "package.json")) {
     exit 1
 }
 
-# Check if node_modules exists, if not install dependencies
+# Check if all requirements are installed, if not install them
 if (-not (Test-Path "node_modules")) {
-    Write-Host "Installing dependencies..." -ForegroundColor Yellow
+    Write-Host "Installing all dependencies..." -ForegroundColor Yellow
     Write-Host ""
-    Write-Host "Attempting to install npm dependencies..." -ForegroundColor Cyan
+    Write-Host "This will install Python, Node.js, FFmpeg, and all required packages..." -ForegroundColor Cyan
+    Write-Host "This may take several minutes..." -ForegroundColor Yellow
+    Write-Host ""
     try {
-        & "$scriptPath\requirements\install_npm_requirements.ps1"
+        & "$scriptPath\requirements\install_all_requirements.ps1"
         if ($LASTEXITCODE -ne 0) {
-            throw "npm install failed"
+            throw "Installation failed"
         }
     }
     catch {
         Write-Host "ERROR: Failed to install dependencies!" -ForegroundColor Red
         Write-Host $_.Exception.Message -ForegroundColor Red
+        Write-Host ""
+        Write-Host "This could be due to:" -ForegroundColor Yellow
+        Write-Host "  - Python installation failed" -ForegroundColor White
+        Write-Host "  - Node.js installation failed" -ForegroundColor White
+        Write-Host "  - FFmpeg installation failed" -ForegroundColor White
+        Write-Host "  - Network connectivity issues" -ForegroundColor White
+        Write-Host "  - Permission problems" -ForegroundColor White
+        Write-Host ""
+        Write-Host "Please try running the installation manually:" -ForegroundColor Yellow
+        Write-Host "  1. Run: requirements\install_all_requirements.ps1" -ForegroundColor White
+        Write-Host "  2. Or run individual installers in the requirements folder" -ForegroundColor White
         Write-Host ""
         Read-Host "Press Enter to continue"
         exit 1
@@ -78,10 +91,10 @@ try {
 catch {
     Write-Host ""
     Write-Host "ERROR: Failed to start the development server!" -ForegroundColor Red
-    Write-Host "Attempting to install missing requirements..." -ForegroundColor Yellow
+    Write-Host "Attempting to install all missing requirements..." -ForegroundColor Yellow
     Write-Host ""
     try {
-        & "$scriptPath\requirements\install_npm_requirements.ps1"
+        & "$scriptPath\requirements\install_all_requirements.ps1"
         if ($LASTEXITCODE -ne 0) {
             throw "Requirements installation failed"
         }

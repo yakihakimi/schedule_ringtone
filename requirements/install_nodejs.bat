@@ -38,6 +38,88 @@ if %errorlevel% neq 0 (
 echo Internet connection verified.
 echo.
 
+REM Try winget installation first (more reliable on modern Windows)
+echo Attempting to install Node.js using winget...
+echo This is the recommended method for Windows 10/11.
+echo.
+
+REM Check if winget is available
+winget --version >nul 2>&1
+if %errorlevel% equ 0 (
+    echo Winget is available. Installing Node.js...
+    winget install OpenJS.NodeJS --silent --accept-package-agreements --accept-source-agreements
+) else (
+    echo Winget is not available on this system. Skipping winget installation...
+    goto :skip_winget
+)
+if %errorlevel% equ 0 (
+    echo.
+    echo Winget installation completed. Refreshing environment variables...
+    timeout /t 10 /nobreak >nul
+    echo Calling refreshenv to update PATH...
+    call refreshenv
+    
+    REM Refresh PATH manually as well
+    for /f "tokens=2*" %%A in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PATH 2^>nul') do set SYSTEM_PATH=%%B
+    for /f "tokens=2*" %%A in ('reg query "HKCU\Environment" /v PATH 2^>nul') do set USER_PATH=%%B
+    set PATH=%SYSTEM_PATH%;%USER_PATH%
+    
+    REM Check if installation was successful
+    node --version >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo.
+        echo ========================================
+        echo Node.js installation completed via winget!
+        echo ========================================
+        echo.
+        echo Node.js version:
+        node --version
+        echo.
+        echo npm version:
+        npm --version
+        echo.
+        echo Node.js is now ready to use!
+        echo.
+        goto :end
+    ) else (
+        echo Winget installation completed but Node.js not found in PATH.
+        echo Trying to locate Node.js installation...
+        
+        REM Check common Node.js installation paths
+        set NODEJS_PATHS=C:\Program Files\nodejs;C:\Program Files (x86)\nodejs;%APPDATA%\npm
+        for %%P in (%NODEJS_PATHS%) do (
+            if exist "%%P\node.exe" (
+                echo Found Node.js at: %%P
+                set "PATH=%%P;%PATH%"
+            )
+        )
+        
+        REM Try again
+        node --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            echo.
+            echo ========================================
+            echo Node.js installation completed via winget!
+            echo ========================================
+            echo.
+            echo Node.js version:
+            node --version
+            echo.
+            echo npm version:
+            npm --version
+            echo.
+            echo Node.js is now ready to use!
+            echo.
+            goto :end
+        )
+    )
+)
+
+:skip_winget
+echo.
+echo Winget installation failed or not available. Trying MSI installer method...
+echo.
+
 REM Create temporary directory for download
 set TEMP_DIR=%TEMP%\nodejs_install
 if not exist "%TEMP_DIR%" mkdir "%TEMP_DIR%"
@@ -70,18 +152,30 @@ if not exist "%INSTALLER_PATH%" (
 echo Download completed successfully!
 echo.
 
-echo Installing Node.js...
-echo This may take a few minutes. Please wait...
-echo.
-
 REM Install Node.js with proper parameters
-echo Installing Node.js with administrator privileges...
-echo This may take a few minutes. Please wait...
-msiexec /i "%INSTALLER_PATH%" /quiet /norestart /log "%TEMP_DIR%\nodejs_install.log"
+echo Installing Node.js...
+echo This will show the installation wizard. Please follow the prompts.
+echo.
+echo IMPORTANT: You may need to approve the installation when prompted.
+echo.
+pause
+echo Starting installation...
+start /wait msiexec /i "%INSTALLER_PATH%" /passive /norestart /log "%TEMP_DIR%\nodejs_install.log"
 
-REM Wait for installation to complete
-echo Waiting for installation to complete...
-timeout /t 60 /nobreak >nul
+REM Check if installation completed successfully
+if %errorlevel% equ 0 (
+    echo Installation completed successfully!
+) else (
+    echo Installation failed with error code: %errorlevel%
+    echo.
+    echo This could be due to:
+    echo   - Insufficient permissions (try running as Administrator)
+    echo   - Antivirus software blocking the installation
+    echo   - Corrupted download
+    echo   - User cancelled the installation
+    echo.
+    goto :installation_failed
+)
 
 REM Check if installation was successful by looking at the log
 if exist "%TEMP_DIR%\nodejs_install.log" (
@@ -89,7 +183,15 @@ if exist "%TEMP_DIR%\nodejs_install.log" (
     findstr /i "error" "%TEMP_DIR%\nodejs_install.log" >nul
     if %errorlevel% equ 0 (
         echo WARNING: Installation log contains errors. Check: %TEMP_DIR%\nodejs_install.log
+        echo.
+        echo Last few lines of the log:
+        powershell -Command "Get-Content '%TEMP_DIR%\nodejs_install.log' | Select-Object -Last 10"
+        echo.
+    ) else (
+        echo Installation log shows no errors.
     )
+) else (
+    echo WARNING: Installation log not found. Installation may have failed.
 )
 
 REM Clean up installer
@@ -99,8 +201,8 @@ rmdir "%TEMP_DIR%" >nul 2>&1
 
 REM Refresh environment variables
 echo Refreshing environment variables...
-REM Try multiple methods to refresh PATH
-call refreshenv >nul 2>&1
+echo Calling refreshenv to update PATH...
+call refreshenv
 REM Also try to manually refresh PATH
 for /f "tokens=2*" %%A in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PATH 2^>nul') do set SYSTEM_PATH=%%B
 for /f "tokens=2*" %%A in ('reg query "HKCU\Environment" /v PATH 2^>nul') do set USER_PATH=%%B
@@ -137,44 +239,7 @@ if %errorlevel% equ 0 (
     echo Node.js is now ready to use!
     echo.
 ) else (
-    echo.
-    echo ========================================
-    echo Node.js installation may have failed!
-    echo ========================================
-    echo.
-    echo Trying alternative installation method...
-    echo.
-    
-    REM Try using winget as fallback
-    winget install OpenJS.NodeJS --silent --accept-package-agreements --accept-source-agreements >nul 2>&1
-    if %errorlevel% equ 0 (
-        echo Winget installation completed. Refreshing PATH...
-        timeout /t 10 /nobreak >nul
-        call refreshenv >nul 2>&1
-        
-        REM Check again
-        node --version >nul 2>&1
-        if %errorlevel% equ 0 (
-            echo.
-            echo ========================================
-            echo Node.js installation completed via winget!
-            echo ========================================
-            echo.
-            echo Node.js version:
-            node --version
-            echo.
-            echo npm version:
-            npm --version
-            echo.
-            echo Node.js is now ready to use!
-            echo.
-        ) else (
-            goto :installation_failed
-        )
-    ) else (
-        goto :installation_failed
-    )
-    goto :end
+    goto :installation_failed
 )
 
 :installation_failed

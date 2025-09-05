@@ -112,34 +112,16 @@ try {
 
 Write-Host ""
 
-# Create FFmpeg directory in Program Files (where the project expects it)
-$installDir = "C:\Program Files\ffmpeg"
-Write-Host "Installing FFmpeg to: $installDir" -ForegroundColor Yellow
+# Install FFmpeg to project directory (no admin privileges needed)
+$installDir = Join-Path (Split-Path $PSScriptRoot -Parent) "ffmpeg"
+Write-Host "Installing FFmpeg to project directory: $installDir" -ForegroundColor Yellow
 Write-Host ""
 
 try {
-    # Create the installation directory (requires admin privileges)
+    # Create the installation directory in project folder
     if (-not (Test-Path $installDir)) {
         Write-Host "Creating installation directory..." -ForegroundColor Yellow
-        try {
-            New-Item -ItemType Directory -Path $installDir -Force | Out-Null
-        } catch {
-            Write-Host "WARNING: Could not create directory in Program Files" -ForegroundColor Yellow
-            Write-Host "This may require administrator privileges" -ForegroundColor Yellow
-            Write-Host "Trying alternative location..." -ForegroundColor Yellow
-            $installDir = "C:\ffmpeg"
-            try {
-                if (-not (Test-Path $installDir)) {
-                    New-Item -ItemType Directory -Path $installDir -Force | Out-Null
-                }
-            } catch {
-                Write-Host "Trying project directory location..." -ForegroundColor Yellow
-                $installDir = Join-Path (Split-Path $PSScriptRoot -Parent) "ffmpeg"
-                if (-not (Test-Path $installDir)) {
-                    New-Item -ItemType Directory -Path $installDir -Force | Out-Null
-                }
-            }
-        }
+        New-Item -ItemType Directory -Path $installDir -Force | Out-Null
     }
     
     # Copy FFmpeg files
@@ -158,22 +140,11 @@ try {
 
 # Add FFmpeg to PATH (current session)
 $env:Path = "$installDir\bin;" + $env:Path
+Write-Host "FFmpeg added to current session PATH" -ForegroundColor Green
 
-# Try to add FFmpeg to system PATH permanently
-Write-Host "Adding FFmpeg to system PATH..." -ForegroundColor Yellow
-try {
-    $currentPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-    if ($currentPath -notlike "*$installDir\bin*") {
-        [Environment]::SetEnvironmentVariable("Path", "$currentPath;$installDir\bin", "Machine")
-        Write-Host "FFmpeg added to system PATH successfully!" -ForegroundColor Green
-    } else {
-        Write-Host "FFmpeg is already in system PATH." -ForegroundColor Green
-    }
-} catch {
-    Write-Host "WARNING: Could not add FFmpeg to system PATH automatically." -ForegroundColor Yellow
-    Write-Host "You may need to run this script as Administrator" -ForegroundColor Yellow
-    Write-Host "FFmpeg will still work if the project finds it in the installation directory" -ForegroundColor Yellow
-}
+# Note: We don't add to system PATH since we're installing to project directory
+# The backend server will automatically find FFmpeg in the project directory
+Write-Host "FFmpeg will be automatically detected by the backend server" -ForegroundColor Green
 
 # Clean up temporary files
 Write-Host "Cleaning up temporary files..." -ForegroundColor Yellow
@@ -191,25 +162,30 @@ Write-Host ""
 Write-Host "Verifying installation..." -ForegroundColor Yellow
 
 try {
-    $ffmpegVersion = ffmpeg -version 2>&1
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host ""
-        Write-Host "========================================" -ForegroundColor Green
-        Write-Host "FFmpeg installation completed successfully!" -ForegroundColor Green
-        Write-Host "========================================" -ForegroundColor Green
-        Write-Host ""
-        Write-Host "FFmpeg version:" -ForegroundColor Cyan
-        $versionLine = $ffmpegVersion | Select-String "ffmpeg version"
-        Write-Host $versionLine -ForegroundColor White
-        Write-Host ""
-        Write-Host "FFmpeg is now ready for MP3 conversion!" -ForegroundColor Green
-        Write-Host "Installation path: $installDir\bin" -ForegroundColor Cyan
-        Write-Host ""
-        Write-Host "The project will automatically find FFmpeg at this location." -ForegroundColor Green
-        Write-Host "Note: You may need to restart your terminal for PATH changes to take effect." -ForegroundColor Yellow
-        Write-Host ""
+    # Test FFmpeg directly from the installation directory
+    $ffmpegExe = Join-Path $installDir "bin\ffmpeg.exe"
+    if (Test-Path $ffmpegExe) {
+        $ffmpegVersion = & $ffmpegExe -version 2>&1
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host ""
+            Write-Host "========================================" -ForegroundColor Green
+            Write-Host "FFmpeg installation completed successfully!" -ForegroundColor Green
+            Write-Host "========================================" -ForegroundColor Green
+            Write-Host ""
+            Write-Host "FFmpeg version:" -ForegroundColor Cyan
+            $versionLine = $ffmpegVersion | Select-String "ffmpeg version"
+            Write-Host $versionLine -ForegroundColor White
+            Write-Host ""
+            Write-Host "FFmpeg is now ready for MP3 conversion!" -ForegroundColor Green
+            Write-Host "Installation path: $installDir\bin" -ForegroundColor Cyan
+            Write-Host ""
+            Write-Host "The backend server will automatically find FFmpeg at this location." -ForegroundColor Green
+            Write-Host ""
+        } else {
+            throw "FFmpeg executable failed to run"
+        }
     } else {
-        throw "FFmpeg not found after installation"
+        throw "FFmpeg executable not found"
     }
 } catch {
     Write-Host ""
@@ -218,11 +194,9 @@ try {
     Write-Host "========================================" -ForegroundColor Red
     Write-Host ""
     Write-Host "Please try the following:" -ForegroundColor Yellow
-    Write-Host "1. Restart your command prompt or PowerShell" -ForegroundColor White
-    Write-Host "2. Check if FFmpeg was installed in $installDir\bin" -ForegroundColor White
-    Write-Host "3. Manually download and install from https://ffmpeg.org" -ForegroundColor White
-    Write-Host ""
-    Write-Host "If you just installed FFmpeg, you may need to restart your terminal." -ForegroundColor Yellow
+    Write-Host "1. Check if FFmpeg was installed in $installDir\bin" -ForegroundColor White
+    Write-Host "2. Manually download and install from https://ffmpeg.org" -ForegroundColor White
+    Write-Host "3. Run this installation script again" -ForegroundColor White
     Write-Host ""
 }
 
