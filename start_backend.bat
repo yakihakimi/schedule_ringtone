@@ -26,7 +26,7 @@ if errorlevel 1 (
     echo WARNING: Some Python requirements are missing!
     echo Attempting to install requirements...
     echo.
-    call ..\requirements\install_requirements.bat
+    call "%~dp0..\requirements\install_requirements.bat"
     if errorlevel 1 (
         echo.
         echo ERROR: Failed to install Python requirements!

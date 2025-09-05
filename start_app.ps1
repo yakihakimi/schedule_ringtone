@@ -11,6 +11,7 @@ Write-Host "Starting Backend Server First..." -ForegroundColor Green
 Write-Host ""
 
 # Start backend server in new PowerShell window
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 $backendScript = Join-Path $scriptPath "start_backend.ps1"
 if (Test-Path $backendScript) {
     Start-Process powershell -ArgumentList "-NoExit", "-Command", "& '$backendScript'" -WindowStyle Normal
@@ -27,19 +28,9 @@ if (Test-Path $backendScript) {
 Write-Host "Starting Frontend App..." -ForegroundColor Green
 Write-Host ""
 
-# Navigate to the ringtone-app directory
+# Navigate to the main directory (files are now in root)
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
-$appPath = Join-Path $scriptPath "ringtone-app"
-
-if (-not (Test-Path $appPath)) {
-    Write-Host "ERROR: ringtone-app directory not found!" -ForegroundColor Red
-    Write-Host "Please make sure you're in the correct directory." -ForegroundColor Red
-    Write-Host ""
-    Read-Host "Press Enter to continue"
-    exit 1
-}
-
-Set-Location $appPath
+Set-Location $scriptPath
 
 # Check if package.json exists
 if (-not (Test-Path "package.json")) {
@@ -56,7 +47,7 @@ if (-not (Test-Path "node_modules")) {
     Write-Host ""
     Write-Host "Attempting to install npm dependencies..." -ForegroundColor Cyan
     try {
-        & ".\requirements\install_npm_requirements.ps1"
+        & "$scriptPath\requirements\install_npm_requirements.ps1"
         if ($LASTEXITCODE -ne 0) {
             throw "npm install failed"
         }
@@ -90,7 +81,7 @@ catch {
     Write-Host "Attempting to install missing requirements..." -ForegroundColor Yellow
     Write-Host ""
     try {
-        & ".\requirements\install_npm_requirements.ps1"
+        & "$scriptPath\requirements\install_npm_requirements.ps1"
         if ($LASTEXITCODE -ne 0) {
             throw "Requirements installation failed"
         }

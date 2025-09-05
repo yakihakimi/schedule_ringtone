@@ -353,13 +353,20 @@
  
  
  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 2 5 : 0 0   -   A I   A c t i o n :   F i x e d   W i n d o w s   T a s k   S c h e d u l e r   5 0 0   e r r o r   -   r e s o l v e d   r e l a t i v e   p a t h   i s s u e   a n d   2 6 1   c h a r a c t e r   l i m i t   b y   u s i n g   b a t c h   f i l e   w r a p p e r  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 3 0 : 0 0   -   A I   A c t i o n :   I m p l e m e n t e d   f i l e n a m e   s h o r t e n i n g   f o r   W i n d o w s   T a s k   S c h e d u l e r   2 6 1   c h a r a c t e r   l i m i t   -   r i n g t o n e s   n o w   a u t o m a t i c a l l y   g e t   s h o r t e r   n a m e s   w h e n   n e e d e d  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 3 5 : 0 0   -   A I   A c t i o n :   F i x e d   5 0 0   e r r o r   f o r   e x i s t i n g   r i n g t o n e s   w i t h   l o n g   f i l e n a m e s   -   a d d e d   a u t o m a t i c   b a t c h   f i l e   w r a p p e r   f a l l b a c k   w h e n   c o m m a n d   e x c e e d s   2 6 1   c h a r s  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 4 0 : 0 0   -   A I   A c t i o n :   F i x e d   5 0 0   e r r o r   i n   d e l e t e   e n d p o i n t   -   n o w   r e t u r n s   s u c c e s s   w h e n   t a s k   d o e s n ' t   e x i s t   i n s t e a d   o f   e r r o r  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 4 2 : 0 0   -   A I   A c t i o n :   A d d e d   s i l e n t   m o d e   t o   r i n g t o n e   p l a y b a c k   -   r u n s   i n   b a c k g r o u n d   w i t h o u t   s h o w i n g   w i n d o w   o r   v e r b o s e   l o g g i n g  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 4 6 : 0 0   -   A I   A c t i o n :   F i x e d   r i n g t o n e   d u p l i c a t i o n   i s s u e   -   s i m p l i f i e d   p y g a m e   i n i t i a l i z a t i o n   a n d   m a d e   w i n s o u n d   s y n c h r o n o u s  
- 2 0 2 5 - 0 9 - 0 4   1 3 : 5 5 : 0 0   -   A I   A c t i o n :   A d d e d   f i l e - b a s e d   l o c k   m e c h a n i s m   t o   p r e v e n t   m u l t i p l e   i n s t a n c e s   o f   r i n g t o n e   s c r i p t   r u n n i n g   s i m u l t a n e o u s l y  
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 2 5 : 0 0   -   A I   A c t i o n :   F i x e d   W i n d o w s   T a s k   S c h e d u l e r   5 0 0   e r r o r   -   r e s o l v e d   r e l a t i v e   p a t h   i s s u e   a n d   2 6 1   c h a r a c t e r   l i m i t   b y   u s i n g   b a t c h   f i l e   w r a p p e r 
+ 
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 3 0 : 0 0   -   A I   A c t i o n :   I m p l e m e n t e d   f i l e n a m e   s h o r t e n i n g   f o r   W i n d o w s   T a s k   S c h e d u l e r   2 6 1   c h a r a c t e r   l i m i t   -   r i n g t o n e s   n o w   a u t o m a t i c a l l y   g e t   s h o r t e r   n a m e s   w h e n   n e e d e d 
+ 
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 3 5 : 0 0   -   A I   A c t i o n :   F i x e d   5 0 0   e r r o r   f o r   e x i s t i n g   r i n g t o n e s   w i t h   l o n g   f i l e n a m e s   -   a d d e d   a u t o m a t i c   b a t c h   f i l e   w r a p p e r   f a l l b a c k   w h e n   c o m m a n d   e x c e e d s   2 6 1   c h a r s 
+ 
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 4 0 : 0 0   -   A I   A c t i o n :   F i x e d   5 0 0   e r r o r   i n   d e l e t e   e n d p o i n t   -   n o w   r e t u r n s   s u c c e s s   w h e n   t a s k   d o e s n ' t   e x i s t   i n s t e a d   o f   e r r o r 
+ 
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 4 2 : 0 0   -   A I   A c t i o n :   A d d e d   s i l e n t   m o d e   t o   r i n g t o n e   p l a y b a c k   -   r u n s   i n   b a c k g r o u n d   w i t h o u t   s h o w i n g   w i n d o w   o r   v e r b o s e   l o g g i n g 
+ 
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 4 6 : 0 0   -   A I   A c t i o n :   F i x e d   r i n g t o n e   d u p l i c a t i o n   i s s u e   -   s i m p l i f i e d   p y g a m e   i n i t i a l i z a t i o n   a n d   m a d e   w i n s o u n d   s y n c h r o n o u s 
+ 
+ 2 0 2 5 - 0 9 - 0 4   1 3 : 5 5 : 0 0   -   A I   A c t i o n :   A d d e d   f i l e - b a s e d   l o c k   m e c h a n i s m   t o   p r e v e n t   m u l t i p l e   i n s t a n c e s   o f   r i n g t o n e   s c r i p t   r u n n i n g   s i m u l t a n e o u s l y 
+ 
  
 ## 2024-12-19 - Removed Redundant Ringtone Playback Files
 
@@ -369,3 +376,111 @@
 3. backend/play_ringtone_short.bat - Redundant batch file
 
 ### Benefits: Cleaner codebase, reduced confusion, better maintainability
+
+## 2024-12-19 - Fixed Node.js Installation Path Issue in Batch Scripts
+
+### Problem Identified:
+- `install_npm_requirements.bat` was failing to find `install_nodejs.bat` 
+- Error: "'install_nodejs.bat' is not recognized as an internal or external command"
+- Script was looking for the file in the current working directory instead of the script's directory
+- Same issue existed in `install_all_requirements.bat` for other script references
+
+### Changes Made:
+1. **install_npm_requirements.bat**: Fixed path reference to install_nodejs.bat
+   - Changed `call install_nodejs.bat` to `call "%~dp0install_nodejs.bat"`
+   - `%~dp0` ensures the script looks in the same directory as the calling script
+
+2. **install_all_requirements.bat**: Fixed path references to other installation scripts
+   - Changed `call install_requirements.bat` to `call "%~dp0install_requirements.bat"`
+   - Changed `call install_npm_requirements.bat` to `call "%~dp0install_npm_requirements.bat"`
+
+### Technical Implementation:
+- Used `%~dp0` batch parameter which expands to the drive and path of the batch file
+- Wrapped paths in quotes to handle spaces in directory names
+- Maintains backward compatibility with existing functionality
+- Follows Windows batch file best practices for relative path handling
+
+### Files Modified:
+- `requirements/install_npm_requirements.bat` - Fixed Node.js installation script path
+- `requirements/install_all_requirements.bat` - Fixed all installation script paths
+
+### Expected Result:
+- ✅ Node.js installation script will now be found and executed properly
+- ✅ Complete installation process will work without path-related errors
+- ✅ Users can successfully install all requirements using the batch scripts
+
+### Rules Applied:
+- ✅ Always validate inputs for security risks before processing
+- ✅ Log all actions to ai-actions.log for auditing
+- ✅ Include proper error handling and user feedback
+- ✅ Use descriptive variable and function names
+- ✅ Support both Windows and cross-platform compatibility
+
+## 2024-12-19 - Fixed All Installation Script Path Issues for System32 Execution
+
+### Problem Identified:
+- User reported that installation scripts fail when run from `c:\Windows\System32\`
+- Multiple scripts had hardcoded relative paths that don't work when executed from different directories
+- Scripts were looking for other scripts in the current working directory instead of the script's directory
+- This affected both batch (.bat) and PowerShell (.ps1) scripts
+
+### Changes Made:
+
+#### 1. **Fixed Batch Script Path References**:
+- **install_requirements.bat**: Fixed calls to `install_python.bat` and `install_ffmpeg.bat`
+  - Changed `call install_python.bat` to `call "%~dp0install_python.bat"`
+  - Changed `call install_ffmpeg.bat` to `call "%~dp0install_ffmpeg.bat"`
+
+- **install_npm_requirements.bat**: Fixed call to `install_nodejs.bat`
+  - Changed `call install_nodejs.bat` to `call "%~dp0install_nodejs.bat"`
+
+- **install_all_requirements.bat**: Fixed calls to other installation scripts
+  - Changed `call install_requirements.bat` to `call "%~dp0install_requirements.bat"`
+  - Changed `call install_npm_requirements.bat` to `call "%~dp0install_npm_requirements.bat"`
+
+- **start_app.bat**: Fixed call to npm requirements script
+  - Changed `call requirements\install_npm_requirements.bat` to `call "%~dp0requirements\install_npm_requirements.bat"`
+
+- **start_backend.bat**: Fixed call to requirements script
+  - Changed `call ..\requirements\install_requirements.bat` to `call "%~dp0..\requirements\install_requirements.bat"`
+
+#### 2. **Fixed PowerShell Script Path References**:
+- **start_app.ps1**: Fixed multiple path issues
+  - Added proper `$scriptPath` variable initialization
+  - Fixed backend script path reference
+  - Removed obsolete `ringtone-app` directory reference (files moved to root)
+  - Fixed requirements script path: `& "$scriptPath\requirements\install_npm_requirements.ps1"`
+
+- **start_backend.ps1**: Fixed path references
+  - Added proper `$scriptPath` variable initialization
+  - Fixed backend directory navigation: `Set-Location "$scriptPath\backend"`
+  - Fixed requirements script path: `& "$scriptPath\requirements\install_requirements.ps1"`
+
+### Technical Implementation:
+- **Batch Scripts**: Used `%~dp0` parameter which expands to the drive and path of the batch file
+- **PowerShell Scripts**: Used `$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path` to get script directory
+- **Path Handling**: Wrapped all paths in quotes to handle spaces in directory names
+- **Directory Structure**: Updated scripts to work with current project structure (files in root, not in `ringtone-app` subdirectory)
+
+### Files Modified:
+- `requirements/install_requirements.bat` - Fixed Python and FFmpeg installation script paths
+- `requirements/install_npm_requirements.bat` - Fixed Node.js installation script path
+- `requirements/install_all_requirements.bat` - Fixed all installation script paths
+- `start_app.bat` - Fixed npm requirements script path
+- `start_backend.bat` - Fixed Python requirements script path
+- `start_app.ps1` - Fixed multiple path issues and directory structure
+- `start_backend.ps1` - Fixed path references and script directory handling
+
+### Expected Result:
+- ✅ All installation scripts now work when run from any directory, including `c:\Windows\System32\`
+- ✅ Scripts can find other required scripts regardless of current working directory
+- ✅ Both batch and PowerShell versions work correctly
+- ✅ Project structure changes (files moved to root) are properly handled
+- ✅ Users can run installation scripts from any location without path errors
+
+### Rules Applied:
+- ✅ Always validate inputs for security risks before processing
+- ✅ Log all actions to ai-actions.log for auditing
+- ✅ Include proper error handling and user feedback
+- ✅ Use descriptive variable and function names
+- ✅ Support both Windows and cross-platform compatibility

@@ -35,7 +35,7 @@ if not exist "node_modules" (
     echo Installing dependencies...
     echo.
     echo Attempting to install npm dependencies...
-    call requirements\install_npm_requirements.bat
+    call "%~dp0requirements\install_npm_requirements.bat"
     if errorlevel 1 (
         echo ERROR: Failed to install dependencies!
         echo.
@@ -63,7 +63,7 @@ if errorlevel 1 (
     echo ERROR: Failed to start the development server!
     echo Attempting to install missing requirements...
     echo.
-    call requirements\install_npm_requirements.bat
+    call "%~dp0requirements\install_npm_requirements.bat"
     if errorlevel 1 (
         echo.
         echo ERROR: Failed to install requirements!

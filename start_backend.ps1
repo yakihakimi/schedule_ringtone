@@ -17,7 +17,8 @@ Write-Host "Using system Python for pydub compatibility..." -ForegroundColor Cya
 Write-Host ""
 
 # Navigate to backend directory
-Set-Location "backend"
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location "$scriptPath\backend"
 
 # Check if Python requirements are installed
 Write-Host "Checking Python requirements..." -ForegroundColor Yellow
@@ -32,7 +33,7 @@ try {
     Write-Host "Attempting to install requirements..." -ForegroundColor Cyan
     Write-Host ""
     try {
-        & "..\requirements\install_requirements.ps1"
+        & "$scriptPath\requirements\install_requirements.ps1"
         if ($LASTEXITCODE -ne 0) {
             throw "Installation failed"
         }

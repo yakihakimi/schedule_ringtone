@@ -45,7 +45,7 @@ echo Installing Python Requirements
 echo ========================================
 echo.
 
-call install_requirements.bat
+call "%~dp0install_requirements.bat"
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: Python requirements installation failed
@@ -68,7 +68,7 @@ echo Installing NPM Requirements
 echo ========================================
 echo.
 
-call install_npm_requirements.bat
+call "%~dp0install_npm_requirements.bat"
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: NPM requirements installation failed

@@ -15,7 +15,7 @@ if %errorlevel% neq 0 (
     echo.
     echo Attempting to install Python automatically...
     echo.
-    call install_python.bat
+    call "%~dp0install_python.bat"
     if %errorlevel% neq 0 (
         echo.
         echo ERROR: Failed to install Python automatically!
@@ -53,7 +53,7 @@ if %errorlevel% neq 0 (
     echo WARNING: FFmpeg not found - MP3 conversion may not work!
     echo Attempting to install FFmpeg automatically...
     echo.
-    call install_ffmpeg.bat
+    call "%~dp0install_ffmpeg.bat"
     if %errorlevel% neq 0 (
         echo.
         echo WARNING: Failed to install FFmpeg automatically!

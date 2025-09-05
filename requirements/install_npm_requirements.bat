@@ -15,7 +15,7 @@ if %errorlevel% neq 0 (
     echo.
     echo Attempting to install Node.js automatically...
     echo.
-    call install_nodejs.bat
+    call "%~dp0install_nodejs.bat"
     if %errorlevel% neq 0 (
         echo.
         echo ERROR: Failed to install Node.js automatically!
