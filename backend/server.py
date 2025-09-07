@@ -280,6 +280,12 @@ def save_ringtone():
         if file_ext not in ['.mp3', '.wav']:
             return jsonify({'success': False, 'error': 'Only MP3 and WAV files are supported. Please upload an MP3 or WAV file.'}), 400
         
+        # Determine which folder to save to based on file type FIRST
+        if file_ext.lower() == '.wav':
+            target_folder = WAV_RINGTONES_FOLDER
+        else:
+            target_folder = MP3_RINGTONES_FOLDER
+        
         # Generate unique filename with clean original name info
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         safe_filename = f"ringtone_{timestamp}_{clean_original_name}_{start_time}s_to_{end_time}s{file_ext}"
@@ -324,13 +330,8 @@ def save_ringtone():
                 safe_filename = "".join(c for c in safe_filename if c.isalnum() or c in (' ', '-', '_', '.')).rstrip()
                 logger.info(f"🔄 Using minimal filename: {safe_filename}")
         
-        # Determine which folder to save to based on file type
-        if file_ext.lower() == '.wav':
-            target_folder = WAV_RINGTONES_FOLDER
-            target_filename = safe_filename
-        else:
-            target_folder = MP3_RINGTONES_FOLDER
-            target_filename = safe_filename
+        # Set the target filename
+        target_filename = safe_filename
         
         file_path = os.path.join(target_folder, target_filename)
         
