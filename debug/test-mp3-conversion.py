@@ -1,97 +1,101 @@
 # Rules applied
-#!/usr/bin/env python3
-"""
-Test script to verify MP3 conversion works with the installed ffmpeg
-"""
-
 import os
 import sys
-from pathlib import Path
+import tempfile
 
-# Add the ffmpeg path to the environment
-def find_ffmpeg_path():
-    """Find FFmpeg installation path dynamically"""
-    import shutil
-    
-    # First, check if ffmpeg is already in PATH
-    ffmpeg_exe = shutil.which("ffmpeg")
-    if ffmpeg_exe:
-        ffmpeg_dir = os.path.dirname(ffmpeg_exe)
-        print(f"FFmpeg found in PATH: {ffmpeg_dir}")
-        return ffmpeg_dir
-    
-    # Common FFmpeg installation paths on Windows
-    possible_paths = [
-        # WinGet installation path (dynamic user)
-        os.path.expanduser(r"~\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin"),
-        # Chocolatey installation
-        r"C:\ProgramData\chocolatey\bin",
-        # Manual installation in Program Files
-        r"C:\Program Files\ffmpeg\bin",
-        r"C:\Program Files (x86)\ffmpeg\bin",
-        # Manual installation in user directory
-        os.path.expanduser(r"~\ffmpeg\bin"),
-        # Working directory (for portable installation)
-        os.path.join(os.path.dirname(__file__), "..", "backend", "ffmpeg", "bin"),
-        # Project root ffmpeg folder
-        os.path.join(os.path.dirname(__file__), "..", "ffmpeg", "bin")
-    ]
-    
-    for path in possible_paths:
-        if os.path.exists(path):
-            ffmpeg_exe = os.path.join(path, "ffmpeg.exe")
-            if os.path.exists(ffmpeg_exe):
-                print(f"FFmpeg found at: {path}")
-                return path
-    
-    print("FFmpeg not found in any common installation paths")
-    return None
+# Add the backend directory to the path so we can import the server functions
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'portable_app', 'backend'))
 
-ffmpeg_path = find_ffmpeg_path()
-if ffmpeg_path:
-    os.environ["PATH"] = ffmpeg_path + os.pathsep + os.environ.get("PATH", "")
-    print(f"Added ffmpeg to PATH: {ffmpeg_path}")
-else:
-    print("FFmpeg not found - MP3 conversion may not work")
+def test_mp3_conversion():
+    """Test MP3 conversion functionality"""
+    print("🔍 Testing MP3 conversion functionality...")
+    
+    try:
+        from pydub import AudioSegment
+        
+        # Configure FFmpeg path
+        ffmpeg_path = os.path.join(os.path.dirname(__file__), '..', 'portable_app', 'ffmpeg', 'bin')
+        ffmpeg_exe = os.path.join(ffmpeg_path, 'ffmpeg.exe')
+        ffprobe_exe = os.path.join(ffmpeg_path, 'ffprobe.exe')
+        
+        if os.path.exists(ffmpeg_exe):
+            AudioSegment.converter = ffmpeg_exe
+            AudioSegment.ffmpeg = ffmpeg_exe
+            AudioSegment.ffprobe = ffprobe_exe
+            print(f"✅ Configured pydub to use FFmpeg: {ffmpeg_exe}")
+        else:
+            print(f"❌ FFmpeg not found at: {ffmpeg_exe}")
+            return False
+        
+        # Create a test audio file
+        print("🎵 Creating test audio...")
+        test_audio = AudioSegment.silent(duration=2000)  # 2 seconds of silence
+        
+        # Test WAV export
+        with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as wav_file:
+            wav_path = wav_file.name
+        
+        print("🔄 Testing WAV export...")
+        test_audio.export(wav_path, format="wav")
+        
+        if os.path.exists(wav_path) and os.path.getsize(wav_path) > 0:
+            print(f"✅ WAV export successful: {os.path.getsize(wav_path)} bytes")
+        else:
+            print("❌ WAV export failed")
+            return False
+        
+        # Test MP3 export
+        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as mp3_file:
+            mp3_path = mp3_file.name
+        
+        print("🔄 Testing MP3 export...")
+        test_audio.export(mp3_path, format="mp3", bitrate="128k")
+        
+        if os.path.exists(mp3_path) and os.path.getsize(mp3_path) > 0:
+            print(f"✅ MP3 export successful: {os.path.getsize(mp3_path)} bytes")
+        else:
+            print("❌ MP3 export failed")
+            return False
+        
+        # Test WAV to MP3 conversion
+        print("🔄 Testing WAV to MP3 conversion...")
+        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as converted_file:
+            converted_path = converted_file.name
+        
+        # Load WAV and convert to MP3
+        loaded_audio = AudioSegment.from_wav(wav_path)
+        loaded_audio.export(converted_path, format="mp3", bitrate="128k")
+        
+        if os.path.exists(converted_path) and os.path.getsize(converted_path) > 0:
+            print(f"✅ WAV to MP3 conversion successful: {os.path.getsize(converted_path)} bytes")
+        else:
+            print("❌ WAV to MP3 conversion failed")
+            return False
+        
+        # Clean up test files
+        try:
+            os.unlink(wav_path)
+            os.unlink(mp3_path)
+            os.unlink(converted_path)
+            print("🧹 Cleaned up test files")
+        except Exception as e:
+            print(f"⚠️ Warning: Could not clean up test files: {e}")
+        
+        return True
+        
+    except ImportError as e:
+        print(f"❌ pydub not available: {e}")
+        return False
+    except Exception as e:
+        print(f"❌ MP3 conversion test failed: {e}")
+        return False
 
-try:
-    from pydub import AudioSegment
-    from pydub.utils import which
-    
-    print("🔧 Testing MP3 conversion with pydub...")
-    print(f"📁 ffmpeg path: {ffmpeg_path}")
-    
-    # Check if ffmpeg is found
-    ffmpeg_exe = which("ffmpeg")
-    print(f"🔍 ffmpeg found at: {ffmpeg_exe}")
-    
-    # Test MP3 conversion
-    print("🔄 Creating test audio...")
-    test_audio = AudioSegment.silent(duration=1000)  # 1 second of silence
-    
-    test_mp3_path = "test_mp3_conversion.mp3"
-    print(f"💾 Exporting to MP3: {test_mp3_path}")
-    
-    test_audio.export(test_mp3_path, format="mp3", bitrate="128k")
-    
-    # Check if file was created
-    if os.path.exists(test_mp3_path):
-        file_size = os.path.getsize(test_mp3_path)
-        print(f"✅ MP3 conversion successful! File size: {file_size} bytes")
-        
-        # Clean up test file
-        os.remove(test_mp3_path)
-        print("🧹 Test file cleaned up")
-        
-        print("\n🎉 MP3 conversion is working correctly!")
-        print("💡 The ringtone creation should now work for both WAV and MP3 formats")
-        
+if __name__ == "__main__":
+    success = test_mp3_conversion()
+    if success:
+        print("\n🎉 MP3 conversion test PASSED!")
+        print("✅ FFmpeg is properly configured and MP3 conversion is working!")
     else:
-        print("❌ MP3 file was not created")
-        
-except ImportError as e:
-    print(f"❌ Error importing pydub: {e}")
-except Exception as e:
-    print(f"❌ Error during MP3 conversion test: {e}")
-    import traceback
-    traceback.print_exc()
+        print("\n💥 MP3 conversion test FAILED!")
+        print("❌ FFmpeg configuration or MP3 conversion is not working!")
+        sys.exit(1)

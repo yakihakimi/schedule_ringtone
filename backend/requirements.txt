@@ -1,4 +1,8 @@
 # Rules applied
+# Essential build tools (fixes distutils.msvccompiler error)
+setuptools>=65.0.0
+wheel>=0.38.0
+
 # Core Flask web framework
 Flask==2.3.3
 Flask-CORS==4.0.0
@@ -7,12 +11,15 @@ Werkzeug==2.3.7
 # Audio processing and conversion
 pydub==0.25.1
 
-# Audio playback libraries
+# Audio playback libraries (with fallback options)
 pygame==2.6.0
 
 # Additional useful packages for the project
 requests==2.31.0  # For HTTP requests if needed
 python-dateutil==2.8.2  # For advanced date/time handling
+
+# Windows-specific packages for better compatibility
+pywin32>=306; sys_platform == "win32"  # Windows-specific utilities
 
 # Windows-specific audio (built-in, but listed for clarity)
 # winsound - built-in Windows module

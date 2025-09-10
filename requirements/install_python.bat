@@ -45,9 +45,9 @@ if not exist "%TEMP_DIR%" mkdir "%TEMP_DIR%"
 echo Downloading Python installer...
 echo.
 
-REM Download Python 3.13.1 for Windows x64
+REM Download Python 3.12.4 for Windows x64
 REM Using the official Python download URL
-set PYTHON_URL=https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe
+set PYTHON_URL=https://www.python.org/ftp/python/3.12.4/python-3.12.4-amd64.exe
 set INSTALLER_PATH=%TEMP_DIR%\python-installer.exe
 
 echo Downloading from: %PYTHON_URL%

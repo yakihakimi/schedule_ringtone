@@ -7,7 +7,7 @@ Write-Host "Ringtone Project - Complete Installation" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "This script will install:" -ForegroundColor Cyan
-Write-Host "  - Python 3.13+ (if not installed)" -ForegroundColor White
+Write-Host "  - Python 3.12.4 (if not installed)" -ForegroundColor White
 Write-Host "  - Node.js LTS (if not installed)" -ForegroundColor White
 Write-Host "  - FFmpeg (if not installed)" -ForegroundColor White
 Write-Host "  - Python packages (Flask, pydub, pygame, etc.)" -ForegroundColor White

@@ -56,8 +56,8 @@ if (-not (Test-Path $tempDir)) {
 Write-Host "Downloading Python installer..." -ForegroundColor Yellow
 Write-Host ""
 
-# Download Python 3.13.1 for Windows x64
-$pythonUrl = "https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe"
+# Download Python 3.12.4 for Windows x64
+$pythonUrl = "https://www.python.org/ftp/python/3.12.4/python-3.12.4-amd64.exe"
 $installerPath = Join-Path $tempDir "python-installer.exe"
 
 Write-Host "Downloading from: $pythonUrl" -ForegroundColor Cyan

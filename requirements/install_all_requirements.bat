@@ -8,7 +8,7 @@ echo Ringtone Project - Complete Installation
 echo ========================================
 echo.
 echo This script will install:
-echo   - Python 3.13+ (if not installed)
+echo   - Python 3.12.4 (if not installed)
 echo   - Node.js LTS (if not installed)
 echo   - FFmpeg (if not installed)
 echo   - Python packages (Flask, pydub, pygame, etc.)

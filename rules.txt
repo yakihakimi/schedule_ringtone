@@ -15,7 +15,7 @@
 - dont delete the test that you create store them in the debug folder.
 
 #rules for python
-- use "C:\Program Files\Python313" folder for runing "python.exe".
+- use "C:\Program Files\Python312" folder for runing "python.exe".
 
 #rules for ringtone project
 - use try and excet for buttons and print the exception to the terminal and on the app.
@@ -41,7 +41,7 @@
 # Project Rules for Ringtone App
 
 ## Code Standards
-- Use Python 3.13+ compatible syntax
+- Use Python 3.12.4 compatible syntax
 - Follow PEP 8 style guidelines
 - Include proper error handling and user feedback
 - Use descriptive variable and function names

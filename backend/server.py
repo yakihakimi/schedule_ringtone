@@ -96,7 +96,19 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
+# Rules applied
+# Configure CORS with explicit allowed origins, headers, and credentials support
+CORS(
+    app,
+    origins=[
+        'http://localhost:3000', 'http://127.0.0.1:3000',
+        'http://localhost:3001', 'http://127.0.0.1:3001',
+        'http://localhost:3002', 'http://127.0.0.1:3002'
+    ],
+    methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
+    supports_credentials=True
+)
 
 # Configuration
 RINGTONES_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), '..', 'ringtones')

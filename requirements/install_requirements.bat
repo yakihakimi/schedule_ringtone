@@ -19,7 +19,7 @@ if %errorlevel% neq 0 (
     if %errorlevel% neq 0 (
         echo.
         echo ERROR: Failed to install Python automatically!
-        echo Please install Python 3.13+ manually from https://python.org
+        echo Please install Python 3.12.4 manually from https://python.org
         pause
         exit /b 1
     )

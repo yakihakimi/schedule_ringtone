@@ -30,7 +30,7 @@ try {
     } catch {
         Write-Host ""
         Write-Host "ERROR: Failed to install Python automatically!" -ForegroundColor Red
-        Write-Host "Please install Python 3.13+ manually from https://python.org" -ForegroundColor Yellow
+        Write-Host "Please install Python 3.12.4 manually from https://python.org" -ForegroundColor Yellow
         Read-Host "Press Enter to exit"
         exit 1
     }
